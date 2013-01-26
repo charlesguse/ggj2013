@@ -21,7 +21,7 @@ namespace Unicorn.PowerUps
         {
             Texture = Level.ScreenManager.Content.Load<Texture2D>("Sprites/PowerUps/Goblet filled stem");
             //origin = new Vector2(texture.Width / 2.0f, texture.Height / 2.0f);
-            CollectedSound = Level.ScreenManager.Content.Load<SoundEffect>("Sounds/GemCollected");
+            CollectedSound = Level.ScreenManager.Content.Load<SoundEffect>("Sounds/WINE SFX");
             base.LoadContent();
         }
 
