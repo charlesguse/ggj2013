@@ -9,12 +9,10 @@
 
 using System;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Audio;
 using System.IO;
-using Microsoft.Xna.Framework.Input.Touch;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Unicorn.PowerUps;
 using Unicorn.ScreenArchitecture;
@@ -29,10 +27,13 @@ namespace Unicorn
     public class Level : IDisposable
     {
         // Physical structure of the level.
-        private Tile[,] tiles;
+        private List<Tile[]> levelTiles;
         private Layer[] layers;
+
         // The layer which entities are drawn on top of.
         private const int EntityLayer = 2;
+
+        private int levelHeight = 0;
 
         // Entities in the level.
         public Player Player
@@ -80,6 +81,8 @@ namespace Unicorn
 
         private SoundEffect exitReachedSound;
 
+        private int numberOfLevels = 4;
+
         #region Loading
 
         /// <summary>
@@ -98,6 +101,7 @@ namespace Unicorn
 
             timeRemaining = TimeSpan.FromMinutes(2.0);
 
+            levelTiles = new List<Tile[]>();
             LoadTiles(fileStream);
 
             layers = new Layer[3];
@@ -119,13 +123,39 @@ namespace Unicorn
         /// </param>
         private void LoadTiles(Stream fileStream)
         {
+            List<string> newLevelLines = ReadAndValidateLevelFile(fileStream);
+            int newLevelWidth = newLevelLines[0].Length;
+
+            
+            // Loop over every tile position
+            int initialWidth = this.Width;
+            for (int x = 0; x < newLevelWidth; ++x)
+            {
+                Tile[] column = new Tile[levelHeight];
+                levelTiles.Add(column);
+                for (int y = 0; y < levelHeight; ++y)
+                {
+                    // to load each tile.
+                    char tileType = newLevelLines[y][x];
+                    levelTiles[initialWidth + x][y] = LoadTile(tileType, initialWidth + x, y);
+                }
+            }
+
+            // Verify that the level has a beginning and an end.
+            if (Player == null)
+                throw new NotSupportedException("A level must have a starting point.");
+            //if (exit == InvalidPosition)
+            //    throw new NotSupportedException("A level must have an exit.");
+        }
+
+        private List<string> ReadAndValidateLevelFile(Stream fileStream)
+        {
             // Load the level and ensure all of the lines are the same length.
-            int width;
             List<string> lines = new List<string>();
             using (StreamReader reader = new StreamReader(fileStream))
             {
                 string line = reader.ReadLine();
-                width = line.Length;
+                int width = line.Length;
                 while (line != null)
                 {
                     lines.Add(line);
@@ -135,26 +165,12 @@ namespace Unicorn
                 }
             }
 
-            // Allocate the tile grid.
-            tiles = new Tile[width, lines.Count];
+            if (levelHeight == 0)
+                levelHeight = lines.Count;
+            else if (levelHeight != lines.Count)
+                throw new Exception(String.Format("The height of the level does not match the height of the initial level."));
 
-            // Loop over every tile position,
-            for (int y = 0; y < Height; ++y)
-            {
-                for (int x = 0; x < Width; ++x)
-                {
-                    // to load each tile.
-                    char tileType = lines[y][x];
-                    tiles[x, y] = LoadTile(tileType, x, y);
-                }
-            }
-
-            // Verify that the level has a beginning and an end.
-            if (Player == null)
-                throw new NotSupportedException("A level must have a starting point.");
-            //if (exit == InvalidPosition)
-            //    throw new NotSupportedException("A level must have an exit.");
-
+            return lines;
         }
 
         /// <summary>
@@ -183,24 +199,18 @@ namespace Unicorn
                 case 'X':
                     return LoadExitTile(x, y);
 
-<<<<<<< local
-                // Gem
-                case 'G':
-                    return LoadGemTile(x, y);
-                // Journal
-                case 'J':
-                    return LoadGemTile(x, y);
-=======
                 // Powerups
                 case 'W':
                     return LoadWineTile(x, y);
+                // Journal
+                case 'J':
+                    return LoadJournalTile(x, y);
                 case 'R':
-                    return LoadBurgerTile(x, y);
->>>>>>> other
+                    return LoadEnergyDrinkTile(x, y);
 
                 // Floating platform
                 case '-':
-                    return LoadTile("Platform", TileCollision.Platform);
+                    return LoadTile("DirtandGrass", TileCollision.Platform);
 
                 // Various enemies
                 case 'A':
@@ -273,13 +283,16 @@ namespace Unicorn
         /// </summary>
         private Tile LoadStartTile(int x, int y)
         {
-            if (Player != null)
-                throw new NotSupportedException("A level may only have one starting point.");
+            if (Player == null)
+            {
+                start = RectangleExtensions.GetBottomCenter(GetBounds(x, y));
+                start.Y -= 100;
+                player = new Player(this, start);
 
-            start = RectangleExtensions.GetBottomCenter(GetBounds(x, y));
-            player = new Player(this, start);
-
-            return new Tile(null, TileCollision.Passable);
+                return new Tile(null, TileCollision.Passable);
+            }
+            else
+                return new Tile(null, TileCollision.Passable);
         }
 
         /// <summary>
@@ -287,12 +300,15 @@ namespace Unicorn
         /// </summary>
         private Tile LoadExitTile(int x, int y)
         {
-            if (exit != InvalidPosition)
-                throw new NotSupportedException("A level may only have one exit.");
+            if (exit == InvalidPosition)
+            {
 
-            exit = GetBounds(x, y).Center;
+                exit = GetBounds(x, y).Center;
 
-            return LoadTile("Exit", TileCollision.Passable);
+                return LoadTile("Exit", TileCollision.Passable);
+            }
+            else
+                return new Tile(null, TileCollision.Passable);
         }
 
         /// <summary>
@@ -312,6 +328,14 @@ namespace Unicorn
         private Tile LoadWineTile(int x, int y)
         {
             Point position = GetBounds(x, y).Center;
+            gems.Add(new WineGlass(this, new Vector2(position.X, position.Y)));
+
+            return new Tile(null, TileCollision.Passable);
+        }
+
+        private Tile LoadJournalTile(int x, int y)
+        {
+            Point position = GetBounds(x, y).Center;
             gems.Add(new Journal(this, new Vector2(position.X, position.Y)));
 
             return new Tile(null, TileCollision.Passable);
@@ -320,7 +344,7 @@ namespace Unicorn
         /// <summary>
         /// Instantiates a gem and puts it in the level.
         /// </summary>
-        private Tile LoadBurgerTile(int x, int y)
+        private Tile LoadEnergyDrinkTile(int x, int y)
         {
             Point position = GetBounds(x, y).Center;
             gems.Add(new EnergyDrink(this, new Vector2(position.X, position.Y)));
@@ -355,7 +379,7 @@ namespace Unicorn
             if (y < 0 || y >= Height)
                 return TileCollision.Passable;
 
-            return tiles[x, y].Collision;
+            return levelTiles[x][y].Collision;
         }
 
         /// <summary>
@@ -371,7 +395,7 @@ namespace Unicorn
         /// </summary>
         public int Width
         {
-            get { return tiles.GetLength(0); }
+            get { return levelTiles.Count; }
         }
 
         /// <summary>
@@ -379,7 +403,7 @@ namespace Unicorn
         /// </summary>
         public int Height
         {
-            get { return tiles.GetLength(1); }
+            get { return levelHeight; }
         }
 
         #endregion
@@ -396,6 +420,9 @@ namespace Unicorn
             GamePadState gamePadState
             )
         {
+            if (player.Position.X / Tile.Width > Width * 0.66f)
+                LoadNextLevel();
+
             // Pause while the player is dead or time is expired.
             if (!Player.IsAlive || TimeRemaining == TimeSpan.Zero)
             {
@@ -436,6 +463,14 @@ namespace Unicorn
             // Clamp the time remaining at zero.
             if (timeRemaining < TimeSpan.Zero)
                 timeRemaining = TimeSpan.Zero;
+        }
+
+        private void LoadNextLevel()
+        {
+            int levelIndex = levelIndex = random.Next(numberOfLevels);
+            string levelPath = string.Format("Content/Levels/{0}.txt", levelIndex);
+            using (Stream fileStream = TitleContainer.OpenStream(levelPath))
+                LoadTiles(fileStream);
         }
 
         /// <summary>
@@ -563,12 +598,12 @@ namespace Unicorn
             right = Math.Min(right, Width - 1);
 
             // For each tile position
-            for (int y = 0; y < Height; ++y)
+            for (int x = left; x <= right; ++x)
             {
-                for (int x = left; x <= right; ++x)
+                for (int y = 0; y < Height; ++y)
                 {
                     // If there is a visible tile in that position
-                    Texture2D texture = tiles[x, y].Texture;
+                    Texture2D texture = levelTiles[x][y].Texture;
                     if (texture != null)
                     {
                         // Draw it in screen space.
