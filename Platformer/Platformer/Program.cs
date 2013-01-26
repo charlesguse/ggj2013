@@ -9,7 +9,7 @@
 
 using System;
 
-namespace Platformer
+namespace Unicorn
 {
     static class Program
     {

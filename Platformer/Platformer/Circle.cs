@@ -10,12 +10,12 @@
 using System;
 using Microsoft.Xna.Framework;
 
-namespace Platformer
+namespace Unicorn
 {
     /// <summary>
     /// Represents a 2D circle.
     /// </summary>
-    struct Circle
+    public struct Circle
     {
         /// <summary>
         /// Center position of the circle.

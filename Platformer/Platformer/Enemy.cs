@@ -11,7 +11,7 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Platformer
+namespace Unicorn
 {
     /// <summary>
     /// Facing direction along the X axis.
@@ -25,7 +25,7 @@ namespace Platformer
     /// <summary>
     /// A monster who is impeding the progress of our fearless adventurer.
     /// </summary>
-    class Enemy
+    public class Enemy
     {
         public Level Level
         {

@@ -16,15 +16,16 @@ using Microsoft.Xna.Framework.Audio;
 using System.IO;
 using Microsoft.Xna.Framework.Input.Touch;
 using Microsoft.Xna.Framework.Input;
+using Unicorn.PowerUps;
 
-namespace Platformer
+namespace Unicorn
 {
     /// <summary>
     /// A uniform grid of tiles with collections of gems and enemies.
     /// The level owns the player and controls the game's win and lose
     /// conditions as well as scoring.
     /// </summary>
-    class Level : IDisposable
+    public class Level : IDisposable
     {
         // Physical structure of the level.
         private Tile[,] tiles;
@@ -305,7 +306,7 @@ namespace Platformer
         private Tile LoadGemTile(int x, int y)
         {
             Point position = GetBounds(x, y).Center;
-            gems.Add(new Gem(this, new Vector2(position.X, position.Y)));
+            gems.Add(new WineGlass(this, new Vector2(position.X, position.Y)));
 
             return new Tile(null, TileCollision.Passable);
         }

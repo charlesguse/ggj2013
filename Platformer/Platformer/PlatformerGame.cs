@@ -16,7 +16,7 @@ using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Input.Touch;
 
 
-namespace Platformer
+namespace Unicorn
 {
     /// <summary>
     /// This is the main type for your game

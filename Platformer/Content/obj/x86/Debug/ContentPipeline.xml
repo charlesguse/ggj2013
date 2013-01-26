@@ -416,6 +416,15 @@
       <Output>C:\sandbox\ggj2013\Platformer\Platformer\bin\x86\Debug\Content\Sounds\Powerup.xnb</Output>
       <Time>2013-01-26T07:28:06.7987083-08:00</Time>
     </Item>
+    <Item>
+      <Source>Sprites\PowerUps\Goblet filled stem.png</Source>
+      <Name>Sprites\PowerUps\Goblet filled stem</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\sandbox\ggj2013\Platformer\Platformer\bin\x86\Debug\Content\Sprites\PowerUps\Goblet filled stem.xnb</Output>
+      <Time>2013-01-25T17:21:45-08:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>

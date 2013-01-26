@@ -10,7 +10,7 @@
 using System;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Platformer
+namespace Unicorn
 {
     /// <summary>
     /// Represents an animated texture.

@@ -14,12 +14,12 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 
-namespace Platformer
+namespace Unicorn
 {
     /// <summary>
     /// Our fearless adventurer!
     /// </summary>
-    class Player
+    public class Player
     {
         // Animations
         private Animation idleAnimation;
