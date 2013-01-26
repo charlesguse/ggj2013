@@ -56,6 +56,8 @@ namespace Unicorn.ScreenArchitecture
             get { return spriteBatch; }
         }
 
+        public ContentManager Content { get; set; }
+
 
         /// <summary>
         /// A default font shared by all the screens. This saves
@@ -113,11 +115,11 @@ namespace Unicorn.ScreenArchitecture
         protected override void LoadContent()
         {
             // Load content belonging to the screen manager.
-            ContentManager content = Game.Content;
+            Content = Game.Content;
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            font = content.Load<SpriteFont>("Fonts/menufont");
-            blankTexture = content.Load<Texture2D>("blank");
+            font = Content.Load<SpriteFont>("Fonts/menufont");
+            blankTexture = Content.Load<Texture2D>("blank");
 
             // Tell each of the screens to load their content.
             foreach (GameScreen screen in screens)
