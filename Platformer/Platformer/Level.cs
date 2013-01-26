@@ -73,11 +73,7 @@ namespace Unicorn
         private const int PointsPerSecond = 5;
 
         // Level content.        
-        public ContentManager Content
-        {
-            get { return content; }
-        }
-        ContentManager content;
+        public ContentManager Content { get; set;}
 
         private SoundEffect exitReachedSound;
 
@@ -92,10 +88,10 @@ namespace Unicorn
         /// <param name="fileStream">
         /// A stream containing the tile data.
         /// </param>
-        public Level(IServiceProvider serviceProvider, Stream fileStream, int levelIndex)
+        public Level(ContentManager content, Stream fileStream, int levelIndex)
         {
             // Create a new content manager to load content used just by this level.
-            content = new ContentManager(serviceProvider, "Content");
+            Content = content;
 
             timeRemaining = TimeSpan.FromMinutes(2.0);
 
@@ -372,10 +368,8 @@ namespace Unicorn
         public void Update(
             GameTime gameTime, 
             KeyboardState keyboardState, 
-            GamePadState gamePadState, 
-            TouchCollection touchState, 
-            AccelerometerState accelState,
-            DisplayOrientation orientation)
+            GamePadState gamePadState
+            )
         {
             // Pause while the player is dead or time is expired.
             if (!Player.IsAlive || TimeRemaining == TimeSpan.Zero)
@@ -394,7 +388,7 @@ namespace Unicorn
             else
             {
                 timeRemaining -= gameTime.ElapsedGameTime;
-                Player.Update(gameTime, keyboardState, gamePadState, touchState, accelState, orientation);
+                Player.Update(gameTime, keyboardState, gamePadState);
                 UpdateGems(gameTime);
 
                 // Falling off the bottom of the level kills the player.

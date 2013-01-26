@@ -176,12 +176,9 @@ namespace Unicorn
         public void Update(
             GameTime gameTime, 
             KeyboardState keyboardState, 
-            GamePadState gamePadState, 
-            TouchCollection touchState, 
-            AccelerometerState accelState,
-            DisplayOrientation orientation)
+            GamePadState gamePadState)
         {
-            GetInput(keyboardState, gamePadState, touchState, accelState, orientation);
+            GetInput(keyboardState, gamePadState);
 
             ApplyPhysics(gameTime);
 
@@ -207,10 +204,7 @@ namespace Unicorn
         /// </summary>
         private void GetInput(
             KeyboardState keyboardState, 
-            GamePadState gamePadState, 
-            TouchCollection touchState,
-            AccelerometerState accelState, 
-            DisplayOrientation orientation)
+            GamePadState gamePadState)
         {
             // Get analog horizontal movement.
             movement = gamePadState.ThumbSticks.Left.X * MoveStickScale;
@@ -220,15 +214,15 @@ namespace Unicorn
                 movement = 0.0f;
 
             // Move the player with accelerometer
-            if (Math.Abs(accelState.Acceleration.Y) > 0.10f)
-            {
-                // set our movement speed
-                movement = MathHelper.Clamp(-accelState.Acceleration.Y * AccelerometerScale, -1f, 1f);
+            //if (Math.Abs(accelState.Acceleration.Y) > 0.10f)
+            //{
+            //    // set our movement speed
+            //    movement = MathHelper.Clamp(-accelState.Acceleration.Y * AccelerometerScale, -1f, 1f);
 
-                // if we're in the LandscapeLeft orientation, we must reverse our movement
-                if (orientation == DisplayOrientation.LandscapeRight)
-                    movement = -movement;
-            }
+            //    // if we're in the LandscapeLeft orientation, we must reverse our movement
+            //    if (orientation == DisplayOrientation.LandscapeRight)
+            //        movement = -movement;
+            //}
 
             // If any digital horizontal movement input is found, override the analog movement.
             if (gamePadState.IsButtonDown(Buttons.DPadLeft) ||
@@ -249,8 +243,7 @@ namespace Unicorn
                 gamePadState.IsButtonDown(JumpButton) ||
                 keyboardState.IsKeyDown(Keys.Space) ||
                 keyboardState.IsKeyDown(Keys.Up) ||
-                keyboardState.IsKeyDown(Keys.W) ||
-                touchState.AnyTouch();
+                keyboardState.IsKeyDown(Keys.W);
         }
 
         /// <summary>
