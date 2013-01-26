@@ -14,6 +14,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Input.Touch;
+using Unicorn.ScreenArchitecture;
+using Microsoft.Xna.Framework.Content;
 
 
 namespace Unicorn
@@ -21,12 +23,12 @@ namespace Unicorn
     /// <summary>
     /// This is the main type for your game
     /// </summary>
-    public class PlatformerGame : Microsoft.Xna.Framework.Game
+    public class PlatformerGame : GameScreen
     {
         // Resources for drawing.
-        private GraphicsDeviceManager graphics;
-        private SpriteBatch spriteBatch;
-
+        //private GraphicsDeviceManager graphics;
+        //private SpriteBatch spriteBatch;
+        public ContentManager Content;
         // Global content.
         private SpriteFont hudFont;
 
@@ -46,8 +48,8 @@ namespace Unicorn
         // then we use the same input state wherever needed
         private GamePadState gamePadState;
         private KeyboardState keyboardState;
-        private TouchCollection touchState;
-        private AccelerometerState accelerometerState;
+        //private TouchCollection touchState;
+        //private AccelerometerState accelerometerState;
         
         // The number of levels in the Levels directory of our content. We assume that
         // levels in our content are 0-based and that all numbers under this constant
@@ -57,25 +59,25 @@ namespace Unicorn
 
         public PlatformerGame()
         {
-            graphics = new GraphicsDeviceManager(this);
-            Content.RootDirectory = "Content";
+//            graphics = new GraphicsDeviceManager(this);
+//            Content.RootDirectory = "Content";
 
-#if WINDOWS_PHONE
-            graphics.IsFullScreen = true;
-            TargetElapsedTime = TimeSpan.FromTicks(333333);
-#endif
+//#if WINDOWS_PHONE
+//            graphics.IsFullScreen = true;
+//            TargetElapsedTime = TimeSpan.FromTicks(333333);
+//#endif
 
-            Accelerometer.Initialize();
+//            Accelerometer.Initialize();
         }
 
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
         /// all of your content.
         /// </summary>
-        protected override void LoadContent()
+        public override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+            //spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // Load fonts
             hudFont = Content.Load<SpriteFont>("Fonts/Hud");
@@ -104,16 +106,16 @@ namespace Unicorn
         /// checking for collisions, gathering input, and playing audio.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        protected override void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime, bool otherScreenHasFocus,
+                                                       bool coveredByOtherScreen)
         {
             // Handle polling for our input and handling high-level input
             HandleInput();
 
             // update our level, passing down the GameTime along with all of our input states
-            level.Update(gameTime, keyboardState, gamePadState, touchState, 
-                         accelerometerState, Window.CurrentOrientation);
+            level.Update(gameTime, keyboardState, gamePadState);
 
-            base.Update(gameTime);
+            //base.Update(gameTime);
         }
 
         private void HandleInput()
@@ -121,17 +123,14 @@ namespace Unicorn
             // get all of our input states
             keyboardState = Keyboard.GetState();
             gamePadState = GamePad.GetState(PlayerIndex.One);
-            touchState = TouchPanel.GetState();
-            accelerometerState = Accelerometer.GetState();
 
             // Exit the game when back is pressed.
-            if (gamePadState.Buttons.Back == ButtonState.Pressed)
-                Exit();
+            //if (gamePadState.Buttons.Back == ButtonState.Pressed)
+            //    Exit();
 
             bool continuePressed =
                 keyboardState.IsKeyDown(Keys.Space) ||
-                gamePadState.IsButtonDown(Buttons.A) ||
-                touchState.AnyTouch();
+                gamePadState.IsButtonDown(Buttons.A);
 
             // Perform the appropriate action to advance the game and
             // to get the player back to playing.
@@ -165,7 +164,7 @@ namespace Unicorn
             // Load the level.
             string levelPath = string.Format("Content/Levels/{0}.txt", levelIndex);
             using (Stream fileStream = TitleContainer.OpenStream(levelPath))
-                level = new Level(Services, fileStream, levelIndex);
+                level = new Level(Content, fileStream, levelIndex);
         }
 
         private void ReloadCurrentLevel()
@@ -178,25 +177,25 @@ namespace Unicorn
         /// Draws the game from background to foreground.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        protected override void Draw(GameTime gameTime)
+        public override void Draw(GameTime gameTime)
         {
-            graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
+            //graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
 
 
-            spriteBatch.Begin();
+            ScreenManager.SpriteBatch.Begin();
 
-            level.Draw(gameTime, spriteBatch);
+            level.Draw(gameTime, ScreenManager.SpriteBatch);
 
             DrawHud();
 
-            spriteBatch.End();
+            ScreenManager.SpriteBatch.End();
 
             base.Draw(gameTime);
         }
 
         private void DrawHud()
         {
-            Rectangle titleSafeArea = GraphicsDevice.Viewport.TitleSafeArea;
+            Rectangle titleSafeArea = ScreenManager.GraphicsDevice.Viewport.TitleSafeArea;
             Vector2 hudLocation = new Vector2(titleSafeArea.X, titleSafeArea.Y);
             Vector2 center = new Vector2(titleSafeArea.X + titleSafeArea.Width / 2.0f,
                                          titleSafeArea.Y + titleSafeArea.Height / 2.0f);
@@ -243,14 +242,14 @@ namespace Unicorn
             {
                 // Draw status message.
                 Vector2 statusSize = new Vector2(status.Width, status.Height);
-                spriteBatch.Draw(status, center - statusSize / 2, Color.White);
+                ScreenManager.SpriteBatch.Draw(status, center - statusSize / 2, Color.White);
             }
         }
 
         private void DrawShadowedString(SpriteFont font, string value, Vector2 position, Color color)
         {
-            spriteBatch.DrawString(font, value, position + new Vector2(1.0f, 1.0f), Color.Black);
-            spriteBatch.DrawString(font, value, position, color);
+            ScreenManager.SpriteBatch.DrawString(font, value, position + new Vector2(1.0f, 1.0f), Color.Black);
+            ScreenManager.SpriteBatch.DrawString(font, value, position, color);
         }
     }
 }
