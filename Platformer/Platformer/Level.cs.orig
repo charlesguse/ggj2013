@@ -31,8 +31,9 @@ namespace Unicorn
         private Layer[] layers;
 
         // The layer which entities are drawn on top of.
-        private const int EntityLayer = 2;
+        private const int EntityLayer = 0;
 
+        private const int numberOfLevels = 3;
         private int levelHeight = 0;
 
         // Entities in the level.
@@ -79,9 +80,9 @@ namespace Unicorn
         //public ContentManager Content { get; set;}
         public ScreenManager ScreenManager { get; set; }
 
-        private SoundEffect exitReachedSound;
+        //private SoundEffect exitReachedSound;
 
-        private int numberOfLevels = 4;
+        
 
         #region Loading
 
@@ -104,13 +105,13 @@ namespace Unicorn
             levelTiles = new List<Tile[]>();
             LoadTiles(fileStream);
 
-            layers = new Layer[3];
-            layers[0] = new Layer(ScreenManager.Content, "Backgrounds/Layer0", 0.2f);
-            layers[1] = new Layer(ScreenManager.Content, "Backgrounds/Layer1", 0.5f);
-            layers[2] = new Layer(ScreenManager.Content, "Backgrounds/Layer2", 0.8f);
+            layers = new Layer[1];
+            layers[0] = new Layer(ScreenManager.Content, "Backgrounds/background0", 0.2f);
+            //layers[1] = new Layer(ScreenManager.Content, "Backgrounds/Layer1", 0.5f);
+            //layers[2] = new Layer(ScreenManager.Content, "Backgrounds/Layer2", 0.8f);
 
             // Load sounds.
-            exitReachedSound = ScreenManager.Content.Load<SoundEffect>("Sounds/ExitReached");
+            //exitReachedSound = ScreenManager.Content.Load<SoundEffect>("Sounds/ExitReached");
         }
 
         /// <summary>
@@ -195,36 +196,21 @@ namespace Unicorn
                 case '.':
                     return new Tile(null, TileCollision.Passable);
 
-                // Exit
-                case 'X':
-                    return LoadExitTile(x, y);
+                // Random Powerup
+                case 'P':
+                    return LoadRandomPowerUp(x, y);
 
-                // Powerups
-                case 'W':
-                    return LoadWineTile(x, y);
-                // Journal
-                case 'J':
-                    return LoadJournalTile(x, y);
-                case 'R':
-                    return LoadEnergyDrinkTile(x, y);
+                // Random Enemy
+                case 'E':
+                    return LoadEnemyTile(x, y, "MonsterA");
 
                 // Floating platform
                 case '-':
-                    return LoadTile("DirtandGrass", TileCollision.Platform);
-
-                // Various enemies
-                case 'A':
-                    return LoadEnemyTile(x, y, "MonsterA");
-                case 'B':
-                    return LoadEnemyTile(x, y, "MonsterB");
-                case 'C':
-                    return LoadEnemyTile(x, y, "MonsterC");
-                case 'D':
-                    return LoadEnemyTile(x, y, "MonsterD");
+                    return LoadTile("Dirt48", TileCollision.Platform);
 
                 // Platform block
                 case '~':
-                    return LoadTile("DirtandGrass", TileCollision.Platform);
+                    return LoadTile("Dirt48", TileCollision.Platform);
 
                 // Passable block
                 case ':':
@@ -236,7 +222,7 @@ namespace Unicorn
 
                 // Impassable block
                 case '#':
-                    return LoadTile("DirtandGrass", TileCollision.Platform);
+                    return LoadTile("Dirt48", TileCollision.Impassable);
 
                 // Unknown tile type character
                 default:
@@ -322,32 +308,37 @@ namespace Unicorn
             return new Tile(null, TileCollision.Passable);
         }
 
-        /// <summary>
-        /// Instantiates a gem and puts it in the level.
-        /// </summary>
-        private Tile LoadWineTile(int x, int y)
+        private Tile LoadRandomPowerUp(int x, int y)
         {
             Point position = GetBounds(x, y).Center;
-            gems.Add(new WineGlass(this, new Vector2(position.X, position.Y)));
 
-            return new Tile(null, TileCollision.Passable);
-        }
+            const int numberOfPowerups = 5;
+            const float probabilityOfPowerup = 0.75f;
 
-        private Tile LoadJournalTile(int x, int y)
-        {
-            Point position = GetBounds(x, y).Center;
-            gems.Add(new Journal(this, new Vector2(position.X, position.Y)));
-
-            return new Tile(null, TileCollision.Passable);
-        }
-
-        /// <summary>
-        /// Instantiates a gem and puts it in the level.
-        /// </summary>
-        private Tile LoadEnergyDrinkTile(int x, int y)
-        {
-            Point position = GetBounds(x, y).Center;
-            gems.Add(new EnergyDrink(this, new Vector2(position.X, position.Y)));
+            if (random.NextDouble() > probabilityOfPowerup)
+            {
+                int powerupToLoad = random.Next(numberOfPowerups);
+                switch (powerupToLoad)
+                {
+                    case 0:
+                        gems.Add(new Journal(this, new Vector2(position.X, position.Y)));
+                        break;
+                    case 1:
+                        gems.Add(new Aspirin(this, new Vector2(position.X, position.Y)));
+                        break;
+                    case 2:
+                        gems.Add(new WineGlass(this, new Vector2(position.X, position.Y)));
+                        break;
+                    case 3:
+                        gems.Add(new EnergyDrink(this, new Vector2(position.X, position.Y)));
+                        break;
+                    case 4:
+                        gems.Add(new Salmon(this, new Vector2(position.X, position.Y)));
+                        break;
+                    default:
+                        throw new IndexOutOfRangeException(String.Format("Random number generator selected an invalid powerup. Check constant value for number of powerups."));
+                }
+            }
 
             return new Tile(null, TileCollision.Passable);
         }
@@ -415,8 +406,8 @@ namespace Unicorn
         /// and handles the time limit with scoring.
         /// </summary>
         public void Update(
-            GameTime gameTime, 
-            KeyboardState keyboardState, 
+            GameTime gameTime,
+            KeyboardState keyboardState,
             GamePadState gamePadState
             )
         {
@@ -539,7 +530,7 @@ namespace Unicorn
         private void OnExitReached()
         {
             Player.OnReachedExit();
-            exitReachedSound.Play();
+            //exitReachedSound.Play();
             reachedExit = true;
         }
 

@@ -402,20 +402,34 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+<<<<<<< local
+    <Compile Include="Sprites\Player\unicornBase.png">
+      <Name>unicornBase</Name>
+=======
     <Compile Include="Sprites\Slug\Idle.png">
       <Name>Idle</Name>
+>>>>>>> other
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+<<<<<<< local
+    <Compile Include="Sprites\Player\unicornRun.png">
+      <Name>unicornRun</Name>
+=======
     <Compile Include="Sprites\Slug\Run.png">
       <Name>Run</Name>
+>>>>>>> other
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+<<<<<<< local
+    <Compile Include="Backgrounds\background0_0.png">
+      <Name>background0_0</Name>
+=======
     <Compile Include="Tiles\DoubleImpassableLower.png">
       <Name>DoubleImpassableLower</Name>
       <Importer>TextureImporter</Importer>
@@ -443,31 +457,12 @@
     </Compile>
     <Compile Include="Tiles\Impassable.png">
       <Name>Impassable</Name>
+>>>>>>> other
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Sprites\Player\unicornBase.png">
-      <Name>unicornBase</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Sprites\Player\unicornRun.png">
-      <Name>unicornRun</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Backgrounds\background0_0.png">
-      <Name>background0_0</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
+<<<<<<< local
   <ItemGroup>
     <Compile Include="Backgrounds\background0_2.png">
       <Name>background0_2</Name>
@@ -482,6 +477,8 @@
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
+=======
+>>>>>>> other
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
