@@ -33,6 +33,7 @@ namespace Unicorn
         // The layer which entities are drawn on top of.
         private const int EntityLayer = 2;
 
+        private const int numberOfLevels = 3;
         private int levelHeight = 0;
 
         // Entities in the level.
@@ -81,7 +82,7 @@ namespace Unicorn
 
         //private SoundEffect exitReachedSound;
 
-        private int numberOfLevels = 4;
+        
 
         #region Loading
 
@@ -195,27 +196,21 @@ namespace Unicorn
                 case '.':
                     return new Tile(null, TileCollision.Passable);
 
-                // Exit
-                case 'X':
-                    return LoadExitTile(x, y);
+                // Random Powerup
+                case 'P':
+                    return LoadRandomPowerUp(x, y);
+
+                // Random Enemy
+                case 'E':
+                    return LoadEnemyTile(x, y, "MonsterA");
 
                 // Floating platform
                 case '-':
-                    return LoadTile("DirtandGrass", TileCollision.Platform);
-
-                // Various enemies
-                case 'A':
-                    return LoadEnemyTile(x, y, "MonsterA");
-                case 'B':
-                    return LoadEnemyTile(x, y, "MonsterB");
-                case 'C':
-                    return LoadEnemyTile(x, y, "MonsterC");
-                case 'D':
-                    return LoadEnemyTile(x, y, "MonsterD");
+                    return LoadTile("Dirt48", TileCollision.Platform);
 
                 // Platform block
                 case '~':
-                    return LoadTile("DirtandGrass", TileCollision.Platform);
+                    return LoadTile("Dirt48", TileCollision.Platform);
 
                 // Passable block
                 case ':':
@@ -227,11 +222,11 @@ namespace Unicorn
 
                 // Impassable block
                 case '#':
-                    return LoadTile("DirtandGrass", TileCollision.Platform);
+                    return LoadTile("Dirt48", TileCollision.Impassable);
 
                 // Unknown tile type character
                 default:
-                    return LoadPowerUpTile(tileType, x, y);
+                    throw new NotSupportedException(String.Format("Unsupported tile type character '{0}' at position {1}, {2}.", tileType, x, y));
             }
         }
 
@@ -313,61 +308,36 @@ namespace Unicorn
             return new Tile(null, TileCollision.Passable);
         }
 
-        /// <summary>
-        /// Instantiates a gem and puts it in the level.
-        /// </summary>
-        private Tile LoadWineTile(int x, int y)
-        {
-            Point position = GetBounds(x, y).Center;
-            gems.Add(new WineGlass(this, new Vector2(position.X, position.Y)));
-
-            return new Tile(null, TileCollision.Passable);
-        }
-
-        private Tile LoadJournalTile(int x, int y)
-        {
-            Point position = GetBounds(x, y).Center;
-            gems.Add(new Journal(this, new Vector2(position.X, position.Y)));
-
-            return new Tile(null, TileCollision.Passable);
-        }
-
-        /// <summary>
-        /// Instantiates a gem and puts it in the level.
-        /// </summary>
-        private Tile LoadEnergyDrinkTile(int x, int y)
-        {
-            Point position = GetBounds(x, y).Center;
-            gems.Add(new EnergyDrink(this, new Vector2(position.X, position.Y)));
-
-            return new Tile(null, TileCollision.Passable);
-        }
-
-        private Tile LoadPowerUpTile(char tileType, int x, int y)
+        private Tile LoadRandomPowerUp(int x, int y)
         {
             Point position = GetBounds(x, y).Center;
 
-            switch (tileType)
+            const int numberOfPowerups = 5;
+            const float probabilityOfPowerup = 0.75f;
+
+            if (random.NextDouble() > probabilityOfPowerup)
             {
-                // Powerups
-                case 'a':
-                    gems.Add(new Aspirin(this, new Vector2(position.X, position.Y)));
-                    break;
-                case 'w':
-                    gems.Add(new WineGlass(this, new Vector2(position.X, position.Y)));
-                    break;
-                // Journal
-                case 'j':
-                    gems.Add(new Journal(this, new Vector2(position.X, position.Y)));
-                    break;
-                case 'e':
-                    gems.Add(new EnergyDrink(this, new Vector2(position.X, position.Y)));
-                    break;
-                case 's':
-                    gems.Add(new Salmon(this, new Vector2(position.X, position.Y)));
-                    break;
-                default:
-                    throw new NotSupportedException(String.Format("Unsupported tile type character '{0}' at position {1}, {2}.", tileType, x, y));
+                int powerupToLoad = random.Next(numberOfPowerups);
+                switch (powerupToLoad)
+                {
+                    case 0:
+                        gems.Add(new Journal(this, new Vector2(position.X, position.Y)));
+                        break;
+                    case 1:
+                        gems.Add(new Aspirin(this, new Vector2(position.X, position.Y)));
+                        break;
+                    case 2:
+                        gems.Add(new WineGlass(this, new Vector2(position.X, position.Y)));
+                        break;
+                    case 3:
+                        gems.Add(new EnergyDrink(this, new Vector2(position.X, position.Y)));
+                        break;
+                    case 4:
+                        gems.Add(new Salmon(this, new Vector2(position.X, position.Y)));
+                        break;
+                    default:
+                        throw new IndexOutOfRangeException(String.Format("Random number generator selected an invalid powerup. Check constant value for number of powerups."));
+                }
             }
 
             return new Tile(null, TileCollision.Passable);
