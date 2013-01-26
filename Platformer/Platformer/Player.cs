@@ -155,16 +155,16 @@ namespace Unicorn
         {
             // Load animated textures.
             idleAnimation = new Animation(Level.ScreenManager.Content.Load<Texture2D>("Sprites/Player/unicorn"), 0.1f, true);
-            runAnimation = new Animation(Level.ScreenManager.Content.Load<Texture2D>("Sprites/Player/unicorn"), 0.1f, true);
+            runAnimation = new Animation(Level.ScreenManager.Content.Load<Texture2D>("Sprites/Player/unicornRun"), 0.1f, true);
             jumpAnimation = new Animation(Level.ScreenManager.Content.Load<Texture2D>("Sprites/Player/unicorn"), 0.1f, false);
             celebrateAnimation = new Animation(Level.ScreenManager.Content.Load<Texture2D>("Sprites/Player/unicorn"), 0.1f, false);
             dieAnimation = new Animation(Level.ScreenManager.Content.Load<Texture2D>("Sprites/Player/unicorn"), 0.1f, false);
 
             // Calculate bounds within texture size.            
-            int width = (int)(runAnimation.FrameWidth * 0.4);
-            int left = (runAnimation.FrameWidth - width) / 2;
-            int height = (int)(runAnimation.FrameWidth * 0.8);
-            int top = runAnimation.FrameHeight - height;
+            int width = (int)(idleAnimation.FrameHeight * 0.4);
+            int left = (idleAnimation.FrameHeight - width) / 2;
+            int height = (int)(idleAnimation.FrameHeight * 0.8);
+            int top = idleAnimation.FrameHeight - height;
             localBounds = new Rectangle(left, top, width, height);
 
             // Load sounds.            
