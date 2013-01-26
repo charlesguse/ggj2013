@@ -231,9 +231,33 @@ namespace Unicorn
                 case '~':
                     return LoadTile("DirtandGrass", TileCollision.Platform);
 
-                // Impassable block
+                // Ground block
                 case '#':
                     return LoadTile("DirtandGrass", TileCollision.Impassable);
+
+                // Impassable block
+                case 'X':
+                    return LoadTile("Impassable", TileCollision.Impassable);
+
+                // Top Double Impassable block
+                case 'n':
+                    return LoadTile("DoubleImpassableUpper", TileCollision.Impassable);
+
+                // Lower Double Impassable block
+                case 'U':
+                    return LoadTile("DoubleImpassableLower", TileCollision.Impassable);
+
+                // Flying Platform - Middle
+                case '%':
+                    return LoadTile("FlyingMiddle", TileCollision.Platform);
+
+                // Flying Platform - Right
+                case '>':
+                    return LoadTile("FlyingRight", TileCollision.Platform);
+
+                // Flying Platform - Left
+                case '<':
+                    return LoadTile("FlyingLeft", TileCollision.Platform);
 
                 // Player 1 start point
                 case '1':
