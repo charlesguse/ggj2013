@@ -18,9 +18,9 @@ namespace Unicorn.PowerUps
 
         public override void LoadContent()
         {
-            Texture = Level.Content.Load<Texture2D>("Sprites/Powerups/EnergyDrink");
+            Texture = Level.ScreenManager.Content.Load<Texture2D>("Sprites/Powerups/EnergyDrink");
             //origin = new Vector2(texture.Width / 2.0f, texture.Height / 2.0f);
-            CollectedSound = Level.Content.Load<SoundEffect>("Sounds/GemCollected");
+            CollectedSound = Level.ScreenManager.Content.Load<SoundEffect>("Sounds/GemCollected");
             base.LoadContent();
         }
 

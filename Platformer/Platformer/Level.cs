@@ -188,9 +188,9 @@ namespace Unicorn
                     return LoadWineTile(x, y);
                 // Journal
                 case 'J':
+                    return LoadJournalTile(x, y);
                 case 'R':
-                    return LoadBurgerTile(x, y);
-                    return LoadGemTile(x, y);
+                    return LoadEnergyDrinkTile(x, y);
 
                 // Floating platform
                 case '-':
@@ -306,6 +306,14 @@ namespace Unicorn
         private Tile LoadWineTile(int x, int y)
         {
             Point position = GetBounds(x, y).Center;
+            gems.Add(new WineGlass(this, new Vector2(position.X, position.Y)));
+
+            return new Tile(null, TileCollision.Passable);
+        }
+
+        private Tile LoadJournalTile(int x, int y)
+        {
+            Point position = GetBounds(x, y).Center;
             gems.Add(new Journal(this, new Vector2(position.X, position.Y)));
 
             return new Tile(null, TileCollision.Passable);
@@ -314,7 +322,7 @@ namespace Unicorn
         /// <summary>
         /// Instantiates a gem and puts it in the level.
         /// </summary>
-        private Tile LoadBurgerTile(int x, int y)
+        private Tile LoadEnergyDrinkTile(int x, int y)
         {
             Point position = GetBounds(x, y).Center;
             gems.Add(new EnergyDrink(this, new Vector2(position.X, position.Y)));
