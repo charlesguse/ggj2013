@@ -152,8 +152,8 @@ namespace Unicorn
             // Verify that the level has a beginning and an end.
             if (Player == null)
                 throw new NotSupportedException("A level must have a starting point.");
-            if (exit == InvalidPosition)
-                throw new NotSupportedException("A level must have an exit.");
+            //if (exit == InvalidPosition)
+            //    throw new NotSupportedException("A level must have an exit.");
 
         }
 
@@ -183,11 +183,13 @@ namespace Unicorn
                 case 'X':
                     return LoadExitTile(x, y);
 
-                // Gem
-                case 'G':
-                    return LoadGemTile(x, y);
+                // Powerups
+                case 'W':
+                    return LoadWineTile(x, y);
                 // Journal
                 case 'J':
+                case 'R':
+                    return LoadBurgerTile(x, y);
                     return LoadGemTile(x, y);
 
                 // Floating platform
@@ -206,7 +208,7 @@ namespace Unicorn
 
                 // Platform block
                 case '~':
-                    return LoadVarietyTile("BlockB", 2, TileCollision.Platform);
+                    return LoadTile("DirtandGrass", TileCollision.Platform);
 
                 // Passable block
                 case ':':
@@ -218,7 +220,7 @@ namespace Unicorn
 
                 // Impassable block
                 case '#':
-                    return LoadVarietyTile("BlockA", 7, TileCollision.Impassable);
+                    return LoadTile("DirtandGrass", TileCollision.Platform);
 
                 // Unknown tile type character
                 default:
@@ -301,10 +303,21 @@ namespace Unicorn
         /// <summary>
         /// Instantiates a gem and puts it in the level.
         /// </summary>
-        private Tile LoadGemTile(int x, int y)
+        private Tile LoadWineTile(int x, int y)
         {
             Point position = GetBounds(x, y).Center;
             gems.Add(new Journal(this, new Vector2(position.X, position.Y)));
+
+            return new Tile(null, TileCollision.Passable);
+        }
+
+        /// <summary>
+        /// Instantiates a gem and puts it in the level.
+        /// </summary>
+        private Tile LoadBurgerTile(int x, int y)
+        {
+            Point position = GetBounds(x, y).Center;
+            gems.Add(new EnergyDrink(this, new Vector2(position.X, position.Y)));
 
             return new Tile(null, TileCollision.Passable);
         }
@@ -393,7 +406,7 @@ namespace Unicorn
             }
             else
             {
-                timeRemaining -= gameTime.ElapsedGameTime;
+                timeRemaining -= new TimeSpan((long)(gameTime.ElapsedGameTime.Ticks * player.TimeModifier));
                 Player.Update(gameTime, keyboardState, gamePadState);
                 UpdateGems(gameTime);
 

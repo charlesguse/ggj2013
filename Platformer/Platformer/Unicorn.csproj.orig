@@ -75,6 +75,12 @@
     <Compile Include="Circle.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="Layer.cs" />
+<<<<<<< local
+    <Compile Include="PowerUps\Journal.cs" />
+=======
+    <Compile Include="PowerUps\Burger.cs" />
+>>>>>>> other
     <Compile Include="PowerUps\Gem.cs" />
     <Compile Include="Level.cs" />
     <Compile Include="PlatformerGame.cs" />

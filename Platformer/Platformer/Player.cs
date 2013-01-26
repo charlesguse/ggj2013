@@ -21,6 +21,11 @@ namespace Unicorn
     /// </summary>
     public class Player
     {
+        private const float HighFatThreshold = 0.75f;
+        private const float LowFatThreshold = 0.25f;
+        private const float FastTimeModifier = 3.0f;
+        private const float SlowSpeedModifier = 0.75f;
+
         // Animations
         private Animation idleAnimation;
         private Animation runAnimation;
@@ -63,6 +68,21 @@ namespace Unicorn
             set { velocity = value; }
         }
         Vector2 velocity;
+
+        private float fattyfatness = 0.5f;
+        public float Fattyfatness
+        {
+            get { return fattyfatness; }
+            set { SetFattyness(value); }
+        }
+
+        private float timeModifier = 1.0f;
+        public float TimeModifier
+        {
+            get { return timeModifier; }
+        }
+
+        private float speedModifier = 1.0f;
 
         // Constants for controling horizontal movement
         private const float MoveAcceleration = 13000.0f;
@@ -257,7 +277,7 @@ namespace Unicorn
 
             // Base velocity is a combination of horizontal movement control and
             // acceleration downward due to gravity.
-            velocity.X += movement * MoveAcceleration * elapsed;
+            velocity.X += movement * MoveAcceleration * speedModifier * elapsed;
             velocity.Y = MathHelper.Clamp(velocity.Y + GravityAcceleration * elapsed, -MaxFallSpeed, MaxFallSpeed);
 
             velocity.Y = DoJump(velocity.Y, gameTime);
@@ -449,6 +469,24 @@ namespace Unicorn
 
             // Draw that sprite.
             sprite.Draw(gameTime, spriteBatch, Position, flip);
+        }
+
+        private void SetFattyness(float fatValue)
+        {
+            this.fattyfatness = MathHelper.Clamp(fatValue, 0.0f, 1.0f);
+
+            speedModifier = FatIsTooHigh() ? SlowSpeedModifier : 1.0f;
+            timeModifier = FatIsTooLow() ? FastTimeModifier : 1.0f;
+        }
+
+        public bool FatIsTooHigh()
+        {
+            return fattyfatness > HighFatThreshold;
+        }
+
+        public bool FatIsTooLow()
+        {
+            return fattyfatness < LowFatThreshold;
         }
     }
 }
