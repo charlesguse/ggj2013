@@ -168,9 +168,9 @@ namespace Unicorn
             localBounds = new Rectangle(left, top, width, height);
 
             // Load sounds.            
-            killedSound = Level.ScreenManager.Content.Load<SoundEffect>("Sounds/PlayerKilled");
-            jumpSound = Level.ScreenManager.Content.Load<SoundEffect>("Sounds/PlayerJump");
-            fallSound = Level.ScreenManager.Content.Load<SoundEffect>("Sounds/PlayerFall");
+            killedSound = Level.ScreenManager.Content.Load<SoundEffect>("Sounds/GOOD WHINNY SFX");
+            jumpSound = Level.ScreenManager.Content.Load<SoundEffect>("Sounds/WALK SFX");
+            fallSound = Level.ScreenManager.Content.Load<SoundEffect>("Sounds/GOOD WHINNY SFX");
         }
 
         /// <summary>

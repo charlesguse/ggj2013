@@ -78,7 +78,7 @@ namespace Unicorn
         //public ContentManager Content { get; set;}
         public ScreenManager ScreenManager { get; set; }
 
-        private SoundEffect exitReachedSound;
+        //private SoundEffect exitReachedSound;
 
         #region Loading
 
@@ -106,7 +106,7 @@ namespace Unicorn
             layers[2] = new Layer(ScreenManager.Content, "Backgrounds/Layer2", 0.8f);
 
             // Load sounds.
-            exitReachedSound = ScreenManager.Content.Load<SoundEffect>("Sounds/ExitReached");
+            //exitReachedSound = ScreenManager.Content.Load<SoundEffect>("Sounds/ExitReached");
         }
 
         /// <summary>
@@ -183,15 +183,6 @@ namespace Unicorn
                 case 'X':
                     return LoadExitTile(x, y);
 
-                // Powerups
-                case 'W':
-                    return LoadWineTile(x, y);
-                // Journal
-                case 'J':
-                    return LoadJournalTile(x, y);
-                case 'R':
-                    return LoadEnergyDrinkTile(x, y);
-
                 // Floating platform
                 case '-':
                     return LoadTile("Platform", TileCollision.Platform);
@@ -224,7 +215,7 @@ namespace Unicorn
 
                 // Unknown tile type character
                 default:
-                    throw new NotSupportedException(String.Format("Unsupported tile type character '{0}' at position {1}, {2}.", tileType, x, y));
+                    return LoadPowerUpTile(tileType, x, y);
             }
         }
 
@@ -331,6 +322,36 @@ namespace Unicorn
             return new Tile(null, TileCollision.Passable);
         }
 
+        private Tile LoadPowerUpTile(char tileType, int x, int y)
+        {
+            Point position = GetBounds(x, y).Center;
+
+            switch (tileType)
+            {
+                // Powerups
+                case 'a':
+                    gems.Add(new Aspirin(this, new Vector2(position.X, position.Y)));
+                    break;
+                case 'w':
+                    gems.Add(new WineGlass(this, new Vector2(position.X, position.Y)));
+                    break;
+                // Journal
+                case 'j':
+                    gems.Add(new Journal(this, new Vector2(position.X, position.Y)));
+                    break;
+                case 'e':
+                    gems.Add(new EnergyDrink(this, new Vector2(position.X, position.Y)));
+                    break;
+                case 's':
+                    gems.Add(new Salmon(this, new Vector2(position.X, position.Y)));
+                    break;
+                default:
+                    throw new NotSupportedException(String.Format("Unsupported tile type character '{0}' at position {1}, {2}.", tileType, x, y));
+            }
+
+            return new Tile(null, TileCollision.Passable);
+        }
+
         /// <summary>
         /// Unloads the level content.
         /// </summary>
@@ -394,8 +415,8 @@ namespace Unicorn
         /// and handles the time limit with scoring.
         /// </summary>
         public void Update(
-            GameTime gameTime, 
-            KeyboardState keyboardState, 
+            GameTime gameTime,
+            KeyboardState keyboardState,
             GamePadState gamePadState
             )
         {
@@ -507,7 +528,7 @@ namespace Unicorn
         private void OnExitReached()
         {
             Player.OnReachedExit();
-            exitReachedSound.Play();
+            //exitReachedSound.Play();
             reachedExit = true;
         }
 

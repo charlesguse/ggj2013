@@ -52,7 +52,7 @@ namespace Unicorn
 
         public override void LoadContent()
         {
-            DreamTextPosition = new Vector2(700, 100);
+            DreamTextPosition = new Vector2(600, 90);
             DreamFont = ScreenManager.Content.Load<SpriteFont>("Fonts/dreamfont");
             int width;
             lines = new List<string>();
@@ -130,7 +130,7 @@ namespace Unicorn
             
             foreach (var line in lines)
             {
-                ScreenManager.SpriteBatch.DrawString(DreamFont, line, DreamTextPosition + offset, Color.Wheat);
+                ScreenManager.SpriteBatch.DrawString(DreamFont, line, DreamTextPosition + offset, Color.DimGray);
                 offset.Y += 20;
             }
 

@@ -76,6 +76,9 @@
     <Compile Include="Enemy.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Layer.cs" />
+    <Compile Include="PowerUps\Aspirin.cs" />
+    <Compile Include="PowerUps\Salmon.cs" />
+    <Compile Include="PowerUps\Sandwhich.cs" />
     <Compile Include="PowerUps\Journal.cs" />
     <Compile Include="PowerUps\EnergyDrink.cs" />
     <Compile Include="PowerUps\Gem.cs" />
