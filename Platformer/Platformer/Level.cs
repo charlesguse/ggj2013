@@ -271,6 +271,7 @@ namespace Unicorn
                 throw new NotSupportedException("A level may only have one starting point.");
 
             start = RectangleExtensions.GetBottomCenter(GetBounds(x, y));
+            start.Y -= 100;
             player = new Player(this, start);
 
             return new Tile(null, TileCollision.Passable);

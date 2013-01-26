@@ -130,7 +130,7 @@ namespace Unicorn
             get
             {
                 int left = (int)Math.Round(Position.X - sprite.Origin.X) + localBounds.X;
-                int top = (int)Math.Round(Position.Y - sprite.Origin.Y) + localBounds.Y;
+                int top = (int)(Math.Round(Position.Y - sprite.Origin.Y) + localBounds.Y);
 
                 return new Rectangle(left, top, localBounds.Width, localBounds.Height);
             }
@@ -154,11 +154,11 @@ namespace Unicorn
         public void LoadContent()
         {
             // Load animated textures.
-            idleAnimation = new Animation(Level.ScreenManager.Content.Load<Texture2D>("Sprites/Player/idle"), 0.1f, true);
-            runAnimation = new Animation(Level.ScreenManager.Content.Load<Texture2D>("Sprites/Player/Run"), 0.1f, true);
-            jumpAnimation = new Animation(Level.ScreenManager.Content.Load<Texture2D>("Sprites/Player/Jump"), 0.1f, false);
-            celebrateAnimation = new Animation(Level.ScreenManager.Content.Load<Texture2D>("Sprites/Player/Celebrate"), 0.1f, false);
-            dieAnimation = new Animation(Level.ScreenManager.Content.Load<Texture2D>("Sprites/Player/Die"), 0.1f, false);
+            idleAnimation = new Animation(Level.ScreenManager.Content.Load<Texture2D>("Sprites/Player/unicorn"), 0.1f, true);
+            runAnimation = new Animation(Level.ScreenManager.Content.Load<Texture2D>("Sprites/Player/unicorn"), 0.1f, true);
+            jumpAnimation = new Animation(Level.ScreenManager.Content.Load<Texture2D>("Sprites/Player/unicorn"), 0.1f, false);
+            celebrateAnimation = new Animation(Level.ScreenManager.Content.Load<Texture2D>("Sprites/Player/unicorn"), 0.1f, false);
+            dieAnimation = new Animation(Level.ScreenManager.Content.Load<Texture2D>("Sprites/Player/unicorn"), 0.1f, false);
 
             // Calculate bounds within texture size.            
             int width = (int)(runAnimation.FrameWidth * 0.4);
@@ -462,9 +462,9 @@ namespace Unicorn
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             // Flip the sprite to face the way we are moving.
-            if (Velocity.X > 0)
+            if (Velocity.X < 0)
                 flip = SpriteEffects.FlipHorizontally;
-            else if (Velocity.X < 0)
+            else if (Velocity.X > 0)
                 flip = SpriteEffects.None;
 
             // Draw that sprite.

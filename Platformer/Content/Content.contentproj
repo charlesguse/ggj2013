@@ -347,13 +347,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Sprites\Player\unicornBase.png">
-      <Name>unicornBase</Name>
+    <Compile Include="Sprites\Player\unicorn.png">
+      <Name>unicorn</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <None Include="Story\0.txt">
       <Name>0</Name>
