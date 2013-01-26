@@ -12,19 +12,19 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Audio;
 
-namespace Platformer
+namespace Unicorn.PowerUps
 {
     /// <summary>
     /// A valuable item the player can collect.
     /// </summary>
-    class Gem
+    public abstract class Gem
     {
-        private Texture2D texture;
+        public Texture2D Texture;
         private Vector2 origin;
-        private SoundEffect collectedSound;
+        public SoundEffect CollectedSound;
 
         public const int PointValue = 30;
-        public readonly Color Color = Color.Yellow;
+        public readonly Color Color = Color.White;
 
         // The gem is animated from a base position along the Y axis.
         private Vector2 basePosition;
@@ -72,11 +72,11 @@ namespace Platformer
         /// <summary>
         /// Loads the gem texture and collected sound.
         /// </summary>
-        public void LoadContent()
+        public virtual void LoadContent()
         {
-            texture = Level.Content.Load<Texture2D>("Sprites/Gem");
-            origin = new Vector2(texture.Width / 2.0f, texture.Height / 2.0f);
-            collectedSound = Level.Content.Load<SoundEffect>("Sounds/GemCollected");
+            //Texture = Level.Content.Load<Texture2D>("Sprites/Gem");
+            origin = new Vector2(Texture.Width / 2.0f, Texture.Height / 2.0f);
+            //CollectedSound = Level.Content.Load<SoundEffect>("Sounds/GemCollected");
         }
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace Platformer
             // Bounce along a sine curve over time.
             // Include the X coordinate so that neighboring gems bounce in a nice wave pattern.            
             double t = gameTime.TotalGameTime.TotalSeconds * BounceRate + Position.X * BounceSync;
-            bounce = (float)Math.Sin(t) * BounceHeight * texture.Height;
+            bounce = (float)Math.Sin(t) * BounceHeight * Texture.Height;
         }
 
         /// <summary>
@@ -104,7 +104,7 @@ namespace Platformer
         /// </param>
         public void OnCollected(Player collectedBy)
         {
-            collectedSound.Play();
+            CollectedSound.Play();
         }
 
         /// <summary>
@@ -112,7 +112,7 @@ namespace Platformer
         /// </summary>
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, Position, null, Color, 0.0f, origin, 1.0f, SpriteEffects.None, 0.0f);
+            spriteBatch.Draw(Texture, Position, null, Color, 0.0f, origin, 1.0f, SpriteEffects.None, 0.0f);
         }
     }
 }
