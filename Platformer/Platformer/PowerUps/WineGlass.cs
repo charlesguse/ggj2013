@@ -24,5 +24,11 @@ namespace Unicorn.PowerUps
             CollectedSound = Level.Content.Load<SoundEffect>("Sounds/GemCollected");
             base.LoadContent();
         }
+
+        public override void OnCollected(Player collectedBy)
+        {
+            Level.TimeRemaining += new TimeSpan(0, 0, 15);
+            base.OnCollected(collectedBy);
+        }
     }
 }

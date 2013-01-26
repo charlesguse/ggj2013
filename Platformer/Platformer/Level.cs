@@ -67,6 +67,7 @@ namespace Unicorn
         public TimeSpan TimeRemaining
         {
             get { return timeRemaining; }
+            set { timeRemaining = value; }
         }
         TimeSpan timeRemaining;
 

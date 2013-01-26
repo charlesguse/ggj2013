@@ -102,7 +102,7 @@ namespace Unicorn.PowerUps
         /// The player who collected this gem. Although currently not used, this parameter would be
         /// useful for creating special powerup gems. For example, a gem could make the player invincible.
         /// </param>
-        public void OnCollected(Player collectedBy)
+        public virtual void OnCollected(Player collectedBy)
         {
             CollectedSound.Play();
         }
