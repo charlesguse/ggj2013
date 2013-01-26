@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta charset="utf-8">
+  <title>
+  none / Zombies 
+  / source  / .hgignore
+ &mdash; Bitbucket
+</title>
+  <link rel="icon" type="image/png" href="https://d3oaxc4q5k2d6q.cloudfront.net/m/f2d828db6961/img/favicon.png">
+  <meta id="bb-canon-url" name="bb-canon-url" content="https://bitbucket.org">
+  
+  
+<link rel="stylesheet" href="https://d3oaxc4q5k2d6q.cloudfront.net/m/f2d828db6961/compressed/css/78ada78c7f22.css" type="text/css" />
+
+  <!--[if lt IE 9]><link rel="stylesheet" href="https://d3oaxc4q5k2d6q.cloudfront.net/m/f2d828db6961/css/aui/aui-ie.css" media="all"><![endif]-->
+  <!--[if IE 9]><link rel="stylesheet" href="https://d3oaxc4q5k2d6q.cloudfront.net/m/f2d828db6961/css/aui/aui-ie9.css" media="all"><![endif]-->
+  <!--[if IE]><link rel="stylesheet" href="https://d3oaxc4q5k2d6q.cloudfront.net/m/f2d828db6961/css/aui-overrides-ie.css" media="all"><![endif]-->
+  <meta name="description" content=""/>
+  <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="Bitbucket" />
+  
+  <link href="/none/zombies/rss?token=db57c0d6ba61574542a31f41449ef835" rel="alternate nofollow" type="application/rss+xml" title="RSS feed for Zombies" />
+
+</head>
+<body class="aui-layout production "
+      >
+<script type="text/javascript" src="https://d3oaxc4q5k2d6q.cloudfront.net/m/f2d828db6961/compressed/js/e98deabf8a2e.js"></script>
+<div id="page">
+  <div id="wrapper">
+    
+    <header id="header" role="banner">
+      <nav class="aui-header aui-dropdown2-trigger-group" role="navigation">
+        <div class="aui-header-inner">
+          <div class="aui-header-primary">
+            <h1 class="aui-header-logo aui-header-logo-bitbucket">
+              <a href="/" class="aui-nav-imagelink">
+                <span class="aui-header-logo-device">Bitbucket</span>
+              </a>
+            </h1>
+            <script id="repo-dropdown-template" type="text/html">
+  
+
+[[#hasViewed]]
+  <div class="aui-dropdown2-section">
+    <strong class="viewed">Recently viewed</strong>
+    <ul class="aui-list-truncate">
+      [[#viewed]]
+        <li class="[[#is_private]]private[[/is_private]][[^is_private]]public[[/is_private]] repository">
+          <a href="[[url]]" title="[[owner]]/[[name]]" class=" aui-icon-container">
+            <img class="repo-avatar size16" src="[[{avatar}]]" alt="[[owner]]/[[name]] avatar"/>
+            [[owner]] / [[name]]
+          </a>
+        </li>
+      [[/viewed]]
+    </ul>
+  </div>
+[[/hasViewed]]
+[[#hasUpdated]]
+<div class="aui-dropdown2-section">
+  <strong class="updated">Recently updated</strong>
+  <ul class="aui-list-truncate">
+    [[#updated]]
+    <li class="[[#is_private]]private[[/is_private]][[^is_private]]public[[/is_private]] repository">
+      <a href="[[url]]" title="[[owner]]/[[name]]" class=" aui-icon-container">
+        <img class="repo-avatar size16" src="[[{avatar}]]" alt="[[owner]]/[[name]] avatar"/>
+        [[owner]] / [[name]]
+      </a>
+    </li>
+    [[/updated]]
+  </ul>
+</div>
+[[/hasUpdated]]
+
+</script>
+            <ul role="menu" class="aui-nav">
+              
+                <li>
+                  <a href="https://bitbucket.org" id="dashboard-link">
+                    Dashboard
+                  </a>
+                </li>
+                <li>
+                  <a class="aui-dropdown2-trigger aui-dropdown2-trigger selected"
+                     aria-owns="repo-dropdown" aria-haspopup="true" href="/repo/mine " id="repositories-dropdown-trigger">
+                    Repositories
+                    <span class="aui-icon-dropdown"></span>
+                  </a>
+                  <nav id="repo-dropdown" class="aui-dropdown2 aui-style-default">
+                    <div id="repo-dropdown-recent"></div>
+                    <div class="aui-dropdown2-section">
+                      <ul>
+                        <li>
+                          <a href="/repo/create" class="new-repository" id="create-repo-link">
+                            Create repository
+                          </a>
+                        </li>
+                        <li>
+                          <a href="/repo/import" class="import-repository" id="import-repo-link">
+                            Import repository
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </nav>
+                </li>
+              
+            </ul>
+          </div>
+          <div class="aui-header-secondary">
+            <ul role="menu" class="aui-nav">
+              <li>
+                <form action="/repo/all" method="get" class="aui-quicksearch">
+                  <label for="search-query" class="assistive">owner/repository</label>
+                  <input  id="search-query" class="search" type="text" placeholder="owner/repository" name="name">
+                </form>
+              </li>
+              <li>
+                <a class="aui-dropdown2-trigger"aria-controls="header-help-dropdown" aria-owns="header-help-dropdown"
+                   aria-haspopup="true" data-container="#header .aui-header-inner" href="#header-help-dropdown">
+                  <span class="aui-icon aui-icon-small aui-iconfont-help">Help</span><span class="aui-icon-dropdown"></span>
+                </a>
+                <nav id="header-help-dropdown" class="aui-dropdown2 aui-style-default aui-dropdown2-in-header" aria-hidden="true">
+                  <div class="aui-dropdown2-section">
+                    <ul>
+                      <li>
+                        <a href="/whats-new" id="features-link">
+                          What's new
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="aui-dropdown2-section">
+                    <ul>
+                      <li><a href="https://confluence.atlassian.com/display/BITBUCKET/bitbucket+Documentation+Home" target="_blank">Documentation</a></li>
+                      <li><a href="https://confluence.atlassian.com/display/BITBUCKET/bitbucket+101" target="_blank">Bitbucket 101</a></li>
+                      <li><a href="https://confluence.atlassian.com/display/BBKB/Bitbucket+Knowledge+Base+Home" target="_blank">Knowledge base</a></li>
+                    </ul>
+                  </div>
+                  <div class="aui-dropdown2-section">
+                    <ul>
+                      <li><a href="https://answers.atlassian.com/tags/bitbucket/" target="_blank">Bitbucket on Atlassian Answers</a></li>
+                      <li><a href="/support">Support</a></li>
+                    </ul>
+                  </div>
+                </nav>
+              </li>
+              
+                <li>
+                  <a class="aui-dropdown2-trigger"
+                     aria-owns="user-dropdown" aria-haspopup="true" data-container="#header .aui-header-inner"
+                     href="/none" title="none" id="user-dropdown-trigger">
+                    <div class="aui-avatar aui-avatar-small">
+                        <div class="aui-avatar-inner">
+                            <img src="https://secure.gravatar.com/avatar/25036a96d314fd5bfc480ac961f8dbc6?d=https%3A%2F%2Fd3oaxc4q5k2d6q.cloudfront.net%2Fm%2Ff2d828db6961%2Fimg%2Fdefault_avatar%2F32%2Fuser_blue.png&amp;s=32" alt="none" height="24" width="24" />
+                        </div>
+                    </div>
+                  </a>
+                  <nav id="user-dropdown" class="aui-dropdown2 aui-style-default" aria-hidden="true">
+                    <div class="aui-dropdown2-section">
+                      <ul>
+                        <li>
+                          <a href="/none" id="profile-link">View profile</a>
+                        </li>
+                        <li>
+                          <a href="/account/user/none/" id="account-link">Manage account</a>
+                        </li>
+                        <li>
+                          <a href="/account/notifications/" id="inbox-link">Inbox <span id="inbox-unread-count"></span></a>
+                        </li>
+                        <li>
+                          <a href="/account/signout/">Log out</a>
+                        </li>
+                      </ul>
+                    </div>
+                      <div class="aui-dropdown2-section" id="account-admin-links">
+                        <strong>Teams</strong>
+                          <ul class="aui-list-truncate">
+                          </ul>
+                        </div>
+                      <div class="aui-dropdown2-section">
+                          <ul>
+                              <li>
+                                  <a href="#general-invite" class='general-invite-link'>Invite a friend</a>
+                              </li>
+                          </ul>
+                      </div>
+                      
+                      <div class="aui-dropdown2-section">
+                        <ul>
+                          <li>
+                            <a href="/account/create-team/" id="create-team-link">Create team</a>
+                          </li>
+                          <li>
+                            <a href="/account/user/none/convert-team/">Convert to team</a>
+                          </li>
+                        </ul>
+                      </div>
+                    
+                  </nav>
+                </li>
+              
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+      <header id="account-warning" role="banner"
+              class="aui-message-banner warning ">
+        <div class="center-content">
+          <span class="aui-icon aui-icon-warning"></span>
+          <span class="message">
+            
+          </span>
+        </div>
+      </header>
+    
+      <header id="aui-message-bar">
+        
+      </header>
+    
+    
+  <header id="repo-warning" role="banner" class="aui-message-banner warning">
+    <div class="center-content">
+      <span class="aui-icon aui-icon-warning"></span>
+      <span class="message">
+      </span>
+    </div>
+  </header>
+  <script id="repo-warning-template" type="text/html">
+  
+
+
+
+
+  This repository's ownership is pending transfer to <a href="/[[username]]">[[username]]</a>.
+  Visit the <a href="/none/zombies/admin/transfer">transfer repository page</a> to view more details.
+
+
+</script>
+  <header id="repo-header" class="subhead row">
+    <div class="center-content">
+      <div class="repo-summary">
+        <a class="repo-avatar-link" href="/none/zombies">
+          <span class="repo-avatar-container size64" title="none/Zombies">
+  <img alt="none/Zombies" src="https://d3oaxc4q5k2d6q.cloudfront.net/m/f2d828db6961/img/language-avatars/c_sharp_64.png"/>
+</span>
+
+          
+          <span class="locked" rel="tooltip" title="Private repository" data-placement="bottom"></span>
+          
+        </a>
+        <h1><a class="repo-link" href="/none/zombies">Zombies</a></h1>
+        <ul class="repo-metadata clearfix">
+          <li>
+            <a class="user" href="/none">
+              <span class="icon user">User icon</span>
+              <span>none</span>
+            </a>
+          </li>
+          
+          
+          <li class="social">
+            <a class="follow following" id="repo-follow"
+               rel="nofollow"
+               href="/none/zombies/follow">
+              <span class="icon follow">Follow icon</span>
+              <span class="text">Following</span>
+            </a>
+          </li>
+          
+          <li class="social">
+            
+              <a class="share" href="#share" id="repo-share-link">
+                <span class="icon invitation">Invitation icon</span>
+                <span>Share</span>
+              </a>
+              
+<div id="share" data-access-url="/none/zombies/admin/access"
+                data-groups-url="/account/user/none/groups/">
+  
+    
+          <div class="clearfix">
+            <span class="repo-avatar-container size32" title="none/Zombies">
+  <img alt="none/Zombies" src="https://d3oaxc4q5k2d6q.cloudfront.net/m/f2d828db6961/img/language-avatars/c_sharp_32.png"/>
+</span>
+
+            <span class="repo-name-container">
+              none / Zombies
+            </span>
+          </div>
+          <p class="helptext">
+            
+              Existing users are granted access to this repository immediately.
+              <br>New users will be sent an invitation.
+            
+          </p>
+          <div class="share-form"></div>
+    
+  
+  <script id="share-form-template" type="text/html">
+  
+
+<div class="error aui-message hidden">
+  <span class="aui-icon icon-error"></span>
+  <div class="message"></div>
+</div>
+<table class="widget bb-list aui">
+  <thead>
+  <tr class="assistive">
+    <th class="user">User</th>
+    <th class="role">Role</th>
+    <th class="actions">Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr class="form">
+    <td colspan="3">
+      <form>
+        <input type="text" class="user-or-email text user-input"
+               placeholder="Username or email address"
+               [[#disabled]]disabled[[/disabled]]>
+        <button type="submit" class="aui-button aui-style" disabled>Add</button>
+      </form>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+</script>
+  <script id="share-detail-template" type="text/html">
+  
+
+[[#username]]
+<td class="user
+           [[#hasCustomGroups]]custom-groups[[/hasCustomGroups]]"
+    [[#error]]data-error="[[error]]"[[/error]]>
+  <div title="[[displayName]]">
+    <a href="/[[username]]" class="user">
+      <img class="avatar avatar16" src="[[avatar]]" />
+      <span>[[displayName]]</span>
+    </a>
+  </div>
+</td>
+[[/username]]
+[[^username]]
+<td class="email
+           [[#hasCustomGroups]]custom-groups[[/hasCustomGroups]]"
+    [[#error]]data-error="[[error]]"[[/error]]>
+  <div title="[[email]]">[[email]]</div>
+</td>
+[[/username]]
+<td class="role
+           [[#hasCustomGroups]]custom-groups[[/hasCustomGroups]]">
+  <div>
+    [[#group]]
+      [[#hasCustomGroups]]
+        <select class="group">
+          [[#groups]]
+            <option value="[[slug]]"
+                    [[#isSelected]]selected[[/isSelected]]>
+              [[name]]
+            </option>
+          [[/groups]]
+        </select>
+      [[/hasCustomGroups]]
+      [[^hasCustomGroups]]
+      <label>
+        <input type="checkbox" class="admin"
+               [[#isAdmin]]checked[[/isAdmin]]>
+        Administrator
+      </label>
+      [[/hasCustomGroups]]
+    [[/group]]
+    [[^group]]
+      <ul>
+        <li class="permission aui-lozenge aui-lozenge-complete
+                   [[^read]]aui-lozenge-subtle[[/read]]"
+            data-permission="read">
+          read
+        </li>
+        <li class="permission aui-lozenge aui-lozenge-complete
+                   [[^write]]aui-lozenge-subtle[[/write]]"
+            data-permission="write">
+          write
+        </li>
+        <li class="permission aui-lozenge aui-lozenge-complete
+                   [[^admin]]aui-lozenge-subtle[[/admin]]"
+            data-permission="admin">
+          admin
+        </li>
+      </ul>
+    [[/group]]
+  </div>
+</td>
+<td class="actions
+           [[#hasCustomGroups]]custom-groups[[/hasCustomGroups]]">
+  <div>
+    <a href="#" class="delete">Delete</a>
+  </div>
+</td>
+
+</script>
+</div>
+
+
+            
+          </li>
+          
+        </ul>
+      </div>
+      <div id="repo-toolbar" class="bb-toolbar">
+        
+        <div class="aui-buttons">
+          <a id="repo-clone-button" class="aui-button aui-style" href="https://none@bitbucket.org/none/zombies">
+            <span class="icon clone">Clone icon</span>
+            <span>Clone</span>
+            <span class="aui-icon-dropdown"></span>
+          </a>
+          <a id="fork-button" class="aui-button aui-style"
+             href="/none/zombies/fork">
+            <span class="icon fork">Fork icon</span>
+            <span>Fork</span>
+          </a>
+        </div>
+        <div class="aui-buttons">
+          <a id="compare-button" class="aui-button aui-style"
+             href="/none/zombies/compare">
+            <span class="icon compare">Compare icon</span>
+            <span>Compare</span>
+          </a>
+          <a id="pull-request-button" class="aui-button aui-style"
+             href="/none/zombies/pull-request/new">
+            <span class="icon pull-request">Pull request icon</span>
+            <span>Pull request</span>
+          </a>
+        </div>
+        
+        
+
+<div id="repo-clone-dialog" class="clone-dialog hidden">
+  
+<div class="clone-url">
+  <div class="aui-buttons">
+    <a href="https://none@bitbucket.org/none/zombies"
+       class="aui-button aui-style aui-dropdown2-trigger" aria-haspopup="true"
+       aria-owns="clone-url-dropdown-header">
+      <span class="dropdown-text">HTTPS</span>
+    </a>
+    <div id="clone-url-dropdown-header" class="aui-dropdown2 aui-style-default">
+      <ul class="aui-list-truncate">
+        <li>
+          <a href="https://none@bitbucket.org/none/zombies"
+            
+              data-command="hg clone https://none@bitbucket.org/none/zombies"
+            
+            class="item-link https">HTTPS
+          </a>
+        </li>
+        <li>
+          <a href="ssh://hg@bitbucket.org/none/zombies"
+            
+              data-command="hg clone ssh://hg@bitbucket.org/none/zombies"
+            
+            class="item-link ssh">SSH
+          </a>
+        </li>
+      </ul>
+    </div>
+    <input type="text" readonly="readonly" value="hg clone https://none@bitbucket.org/none/zombies">
+  </div>
+  
+  <p>Need help cloning? Visit
+     <a href="https://confluence.atlassian.com/x/cgozDQ" target="_blank">Bitbucket 101</a>.</p>
+  
+</div>
+
+
+  
+  
+  
+
+<div class="clone-in-sourcetree"
+  data-https-url="https://none@bitbucket.org/none/zombies"
+  data-ssh-url="ssh://hg@bitbucket.org/none/zombies">
+  <p><button class="aui-button aui-style aui-button-primary">Clone in SourceTree</button></p>
+
+  <p><a href="http://www.sourcetreeapp.com" target="_blank">SourceTree</a>
+      is a free Mac client by Atlassian for Git, Mercurial and Subversion.</p>
+</div>
+
+  
+</div>
+
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </header>
+  <nav id="repo-tabs" class="aui-navgroup aui-navgroup-horizontal aui-navgroup-horizontal-roomy">
+    <div class="aui-navgroup-inner">
+      <div class="aui-navgroup-primary">
+        <ul class="aui-nav">
+          
+            <li>
+              <a href="/none/zombies/overview" id="repo-overview-link">Overview</a>
+            </li>
+          
+          
+            <li class="aui-nav-selected">
+              <a href="/none/zombies/src" id="repo-source-link">Source</a>
+            </li>
+          
+          
+            <li>
+              <a href="/none/zombies/commits" id="repo-commits-link">
+                Commits
+              </a>
+            </li>
+          
+          
+            <li>
+              <a href="/none/zombies/pull-requests" id="repo-pullrequests-link">
+                Pull requests
+                
+                  
+                
+              </a>
+            </li>
+          
+          
+            
+          
+            <li id="issues-tab" class="
+              
+                
+              
+            ">
+              <a href="/none/zombies/issues?status=new&amp;status=open" id="repo-issues-link">
+                Issues
+                
+                  
+                
+              </a>
+            </li>
+            <li id="wiki-tab" class="
+                
+                  
+                
+              ">
+              <a href="/none/zombies/wiki" id="repo-wiki-link">Wiki</a>
+            </li>
+          
+            <li>
+            <a href="/none/zombies/downloads" id="repo-downloads-link">
+              Downloads
+              
+                
+              
+            </a>
+            </li>
+          
+        </ul>
+      </div>
+      <div class="aui-navgroup-secondary">
+        <ul class="aui-nav">
+          
+            <li id="admin-tab">
+              <a href="/none/zombies/admin"
+                 id="repo-admin-link" title="Administration">
+                <span class="icon settings">Administration</span>
+              </a>
+            </li>
+          
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+    <div id="content" role="main">
+      
+  <div id="repo-content">
+    
+  <div id="source-container">
+    
+
+
+
+<header id="source-path">
+  
+  <div class="labels labels-csv">
+    
+      <div class="aui-buttons">
+        <button data-branches-tags-url="/api/1.0/repositories/none/zombies/branches-tags"
+                class="aui-button aui-style branch-dialog-trigger" title="default">
+          
+            
+              <span class="branch icon">Branch</span>
+            
+            <span class="name">default</span>
+          
+          <span class="aui-icon-dropdown"></span>
+        </button>
+      </div>
+    
+  </div>
+  
+  
+    <div class="view-switcher">
+      <div class="aui-buttons">
+        
+          <a href="/none/zombies/src/e1e475a50a83/.hgignore?at=default"
+             class="aui-button aui-style pjax-trigger" aria-pressed="true">
+            Source
+          </a>
+          <a href="/none/zombies/diff/.hgignore?diff2=e1e475a50a83&at=default"
+             class="aui-button aui-style pjax-trigger"
+             title="Diff to previous change">
+            Diff
+          </a>
+          <a href="/none/zombies/history-node/e1e475a50a83/.hgignore?at=default"
+             class="aui-button aui-style pjax-trigger">
+            History
+          </a>
+        
+      </div>
+    </div>
+  
+  <h1>
+    <a href="/none/zombies/src/e1e475a50a83?at=default"
+       class="pjax-trigger" title="[u&#39;.hgignore&#39;]">Zombies</a> /
+    
+      
+        
+          <span>.hgignore</span>
+        
+      
+    
+  </h1>
+  
+    
+    
+  
+  <div class="clearfix"></div>
+</header>
+
+
+  
+    <div id="source-view">
+      <div class="toolbar">
+        <div class="primary">
+          <div class="aui-buttons">
+            
+              <button id="file-history-trigger" class="aui-button aui-style changeset-info"
+                      data-changeset="e1e475a50a839fb070d554d933f6ddb0d1f1f512"
+                      data-path=".hgignore"
+                      data-current="e1e475a50a839fb070d554d933f6ddb0d1f1f512">
+                
+                   
+
+<img class="avatar avatar16" src="https://d3oaxc4q5k2d6q.cloudfront.net/m/f2d828db6961/img/default_avatar/16/user_blue.png" alt="Anonymous avatar" />
+<span class="changeset-hash">e1e475a</span>
+<time datetime="2013-01-23T01:32:12+00:00" class="timestamp"></time>
+<span class="aui-icon-dropdown"></span>
+
+                
+              </button>
+            
+          </div>
+        </div>
+          <div class="secondary">
+            
+              <div class="aui-buttons">
+                <a href="/none/zombies/annotate/e1e475a50a839fb070d554d933f6ddb0d1f1f512/.hgignore?at=default"
+                   class="aui-button aui-style pjax-trigger">Blame</a>
+              </div>
+            
+            <div class="aui-buttons">
+              
+              <a href="/none/zombies/full-commit/e1e475a50a83/.hgignore" class="aui-button aui-style"
+                 title="View full commit e1e475a">Full commit</a>
+              
+              <a href="/none/zombies/raw/e1e475a50a839fb070d554d933f6ddb0d1f1f512/.hgignore"
+                 class="aui-button aui-style">Raw</a>
+            </div>
+          </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+
+    
+      
+        
+          <div class="file-source">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><a href="#cl-1">1</a>
+<a href="#cl-2">2</a>
+<a href="#cl-3">3</a>
+<a href="#cl-4">4</a>
+<a href="#cl-5">5</a>
+<a href="#cl-6">6</a></pre></div></td><td class="code"><div class="highlight"><pre><a name="cl-1"></a><span class="nl">glob:</span><span class="o">*</span><span class="p">.</span><span class="n">suo</span>
+<a name="cl-2"></a><span class="nl">glob:</span><span class="o">*</span><span class="p">.</span><span class="n">user</span>
+<a name="cl-3"></a><span class="nl">glob:</span><span class="n">bin</span><span class="o">/*</span>
+<a name="cl-4"></a><span class="nl">glob:</span><span class="n">obj</span><span class="o">/*</span>
+<a name="cl-5"></a><span class="nl">glob:</span><span class="o">*</span><span class="p">.</span><span class="n">Debug</span><span class="p">.</span><span class="n">cachefile</span>
+<a name="cl-6"></a><span class="nl">glob:</span><span class="o">*</span><span class="p">.</span><span class="n">Release</span><span class="p">.</span><span class="n">cachefile</span>
+</pre></div>
+</td></tr></table>
+          </div>
+        
+      
+    
+  
+
+
+  <script id="source-changeset" type="text/html">
+  
+
+<a href="/none/zombies/src/[[raw_node]]/.hgignore?at=default"
+   class="[[#selected]]highlight[[/selected]]"
+   data-hash="[[node]]">
+  [[#author.username]]
+    <img class="avatar avatar16" src="[[author.avatar]]"/>
+    <span class="author" title="[[raw_author]]">[[author.display_name]]</span>
+  [[/author.username]]
+  [[^author.username]]
+    <img class="avatar avatar16" src="https://d3oaxc4q5k2d6q.cloudfront.net/m/f2d828db6961/img/default_avatar/16/user_blue.png"/>
+    <span class="author unmapped" title="[[raw_author]]">[[author]]</span>
+  [[/author.username]]
+  <time datetime="[[utctimestamp]]" data-title="true">[[utctimestamp]]</time>
+  <span class="message">[[message]]</span>
+</a>
+
+</script>
+  <script id="embed-template" type="text/html">
+  
+
+<form class="aui embed">
+  <label for="embed-code">Embed this source in another page:</label>
+  <input type="text" readonly="true" value="&lt;script src=&quot;[[url]]&quot;&gt;&lt;/script&gt;" id="embed-code">
+</form>
+
+</script>
+
+
+<div class="mask"></div>
+
+
+
+  <script id="branch-dialog-template" type="text/html">
+  
+
+<div class="tabbed-filter-widget branch-dialog">
+  <div class="tabbed-filter">
+    <input placeholder="Filter branches" class="filter-box" autosave="branch-dropdown-293027" type="text">
+    [[^ignoreTags]]
+      <div class="aui-tabs horizontal-tabs aui-tabs-disabled filter-tabs">
+        <ul class="tabs-menu">
+          <li class="menu-item active-tab"><a href="#branches">Branches</a></li>
+          <li class="menu-item"><a href="#tags">Tags</a></li>
+        </ul>
+      </div>
+    [[/ignoreTags]]
+  </div>
+  
+    <div class="tab-pane active-pane" id="branches" data-filter-placeholder="Filter branches">
+      <ol class="filter-list">
+        <li class="empty-msg">No matching branches</li>
+        [[#branches]]
+          [[#hasMultipleHeads]]
+            [[#heads]]
+              <li class="comprev filter-item">
+                <a href="/none/zombies/src/[[changeset]]/.hgignore?at=[[safeName]]" title="[[name]]">
+                  [[name]] ([[shortChangeset]])
+                </a>
+              </li>
+            [[/heads]]
+          [[/hasMultipleHeads]]
+          [[^hasMultipleHeads]]
+            <li class="comprev filter-item">
+              <a href="/none/zombies/src/[[changeset]]/.hgignore?at=[[safeName]]" title="[[name]]">
+                [[name]]
+              </a>
+            </li>
+          [[/hasMultipleHeads]]
+        [[/branches]]
+      </ol>
+    </div>
+    <div class="tab-pane" id="tags" data-filter-placeholder="Filter tags">
+      <ol class="filter-list">
+        <li class="empty-msg">No matching tags</li>
+        [[#tags]]
+          <li class="comprev filter-item">
+            <a href="/none/zombies/src/[[changeset]]/.hgignore?at=[[safeName]]" title="[[name]]">
+              [[name]]
+            </a>
+          </li>
+        [[/tags]]
+      </ol>
+    </div>
+  
+</div>
+
+</script>
+
+
+
+  </div>
+
+  </div>
+  
+
+    </div>
+  </div>
+  <footer id="footer" role="contentinfo">
+    <section class="footer-body">
+      <ul>
+        <li><a href="http://blog.bitbucket.org">Blog</a></li>
+        <li><a href="//bitbucket.org/site/master/issues/new">Report a bug</a></li>
+        <li><a href="/support">Support</a></li>
+        <li><a href="http://confluence.atlassian.com/display/BITBUCKET">Documentation</a></li>
+        <li><a href="http://confluence.atlassian.com/x/IYBGDQ">API</a></li>
+        <li><a href="http://groups.google.com/group/bitbucket-users">Forum</a></li>
+        <li><a href="http://status.bitbucket.org/">Server status</a></li>
+        <li><a href="http://www.atlassian.com/hosted/terms.jsp">Terms of service</a></li>
+        <li><a href="http://www.atlassian.com/about/privacy.jsp">Privacy policy</a></li>
+      </ul>
+      <ul>
+        <li><a href="http://git-scm.com/">Git 1.7.10.3</a></li>
+        <li><a href="http://mercurial.selenic.com/">Mercurial 2.2.2</a></li>
+        <li><a href="https://www.djangoproject.com/">Django 1.3.1</a></li>
+        <li><a href="http://www.python.org/">Python 2.7.3</a></li>
+        <li><a href="#">e48ccb2b05f5 / f2d828db6961 @ bitbucket15</a></li>
+      </ul>
+    </section>
+  </footer>
+</div>
+
+<script type="text/javascript" src="https://d3oaxc4q5k2d6q.cloudfront.net/m/f2d828db6961/compressed/js/85d2d8c8a474.js"></script>
+
+<!-- This script exists purely for the benefit of our selenium tests -->
+<script>
+  setTimeout(function () {
+    BB.JsLoaded = true;
+  }, 3000);
+</script>
+
+
+
+<script>
+  (function (window) {
+    // Base URL to use for non-CNAME URLs.
+    BB.baseUrl = 'https://bitbucket.org';
+
+    BB.images = {
+      invitation: 'https://d3oaxc4q5k2d6q.cloudfront.net/m/f2d828db6961/img/icons/fugue/card_address.png',
+      noAvatar: 'https://d3oaxc4q5k2d6q.cloudfront.net/m/f2d828db6961/img/default_avatar/16/user_blue.png'
+    };
+    BB.user = {"username": "none", "displayName": "Charles Guse", "firstName": "Charles", "avatarUrl": "https://secure.gravatar.com/avatar/25036a96d314fd5bfc480ac961f8dbc6?d=https%3A%2F%2Fd3oaxc4q5k2d6q.cloudfront.net%2Fm%2Ff2d828db6961%2Fimg%2Fdefault_avatar%2F32%2Fuser_blue.png\u0026s=32", "lastName": "Guse", "isTeam": false, "isSshEnabled": false, "isKbdShortcutsEnabled": true, "id": 76021, "isAuthenticated": true};
+    BB.repo || (BB.repo = {});
+    
+      BB.repo.id = 293027;
+      BB.repo.scm = 'hg';
+      
+      
+        BB.repo.language = 'c#';
+        BB.repo.pygmentsLanguage = 'c#';
+      
+      
+        BB.repo.slug = 'zombies';
+      
+      
+        BB.repo.owner = {};
+        BB.repo.owner.username = 'none';
+        BB.repo.owner.is_team = false;
+      
+      
+      // Coerce `BB.repo` to a string to get
+      // "davidchambers/mango" or whatever.
+      BB.repo.toString = function () {
+        return BB.cname ? this.slug : '{owner.username}/{slug}'.format(this);
+      }
+      
+        BB.changeset = 'e1e475a50a839fb070d554d933f6ddb0d1f1f512'
+      
+      
+    
+    window.setInterval(BB.localize, 60 * 1000);
+    BB.localize();
+
+  })(window);
+</script>
+
+
+<script>
+    // Bitbucket Google Analytics
+    // NOTE: these will not fire in development. In debug mode it just logs them to console.
+    (function (window) {
+        // Track the main pageview to the Bitbucket GA account.
+        BB.gaqPush(['_trackPageview']);
+        // Track the main pageview to the Atlassian GA account.
+        BB.gaqPush(['atl._trackPageview']);
+
+        
+
+
+        
+
+        // Include GA commands from sub-templates
+        
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            ga.setAttribute('async', 'true');
+            document.documentElement.firstChild.appendChild(ga);
+        }());
+    })(window);
+</script>
+
+
+
+</body>
+</html>
