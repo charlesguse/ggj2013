@@ -91,7 +91,7 @@ namespace Unicorn
         private const float AirDragFactor = 0.58f;
 
         // Constants for controlling vertical movement
-        private const float MaxJumpTime = 0.35f;
+        private const float MaxJumpTime = 0.45f;
         private const float JumpLaunchVelocity = -3500.0f;
         private const float GravityAcceleration = 3400.0f;
         private const float MaxFallSpeed = 550.0f;

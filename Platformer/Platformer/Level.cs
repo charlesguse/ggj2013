@@ -33,6 +33,7 @@ namespace Unicorn
         // The layer which entities are drawn on top of.
         private const int EntityLayer = 2;
 
+        private const int numberOfLevels = 3;
         private int levelHeight = 0;
 
         // Entities in the level.
@@ -81,7 +82,7 @@ namespace Unicorn
 
         //private SoundEffect exitReachedSound;
 
-        private int numberOfLevels = 4;
+        
 
         #region Loading
 
@@ -201,7 +202,7 @@ namespace Unicorn
 
                 // Floating platform
                 case '-':
-                    return LoadTile("DirtandGrass", TileCollision.Platform);
+                    return LoadTile("Dirt48", TileCollision.Platform);
 
                 // Various enemies
                 case 'A':
@@ -215,7 +216,7 @@ namespace Unicorn
 
                 // Platform block
                 case '~':
-                    return LoadTile("DirtandGrass", TileCollision.Platform);
+                    return LoadTile("Dirt48", TileCollision.Platform);
 
                 // Passable block
                 case ':':
@@ -227,7 +228,7 @@ namespace Unicorn
 
                 // Impassable block
                 case '#':
-                    return LoadTile("DirtandGrass", TileCollision.Platform);
+                    return LoadTile("Dirt48", TileCollision.Impassable);
 
                 // Unknown tile type character
                 default:
