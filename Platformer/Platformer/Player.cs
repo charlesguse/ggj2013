@@ -456,7 +456,7 @@ namespace Unicorn
                 LoadingScreen.Load(Level.ScreenManager, true, null,
                                    new GameOverScreen(Ending.Win));
             }
-            else if (killedBy != null /* AND FAT */)
+            else if (killedBy != null && FatIsTooHigh())
             {
                 LoadingScreen.Load(Level.ScreenManager, true, null,
                                    new GameOverScreen(Ending.Diabetes));
