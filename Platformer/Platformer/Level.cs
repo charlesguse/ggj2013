@@ -30,6 +30,8 @@ namespace Unicorn
         private List<Tile[]> levelTiles;
         private Layer[] layers;
 
+        private string[] enemieSpriteSets = { "Slug", "CakeMonster", "Scorpion" };
+
         // The layer which entities are drawn on top of.
         private const int EntityLayer = 1;
 
@@ -211,12 +213,12 @@ namespace Unicorn
 
                 // Random powerup in front of passable
                 case 'E':
-                    LoadEnemyTile(x, y, "Slug");
+                    LoadEnemyTile(x, y, GetRandomMonster());
                     return LoadTile("Dirt48", TileCollision.Passable);
 
                 // Random Enemy
                 case 'e':
-                    return LoadEnemyTile(x, y, "Slug");
+                    return LoadEnemyTile(x, y, GetRandomMonster());
 
                 // Journal in front of passable
                 case 'J':
@@ -267,6 +269,11 @@ namespace Unicorn
                 default:
                     throw new NotSupportedException(String.Format("Unsupported tile type character '{0}' at position {1}, {2}.", tileType, x, y));
             }
+        }
+
+        private string GetRandomMonster()
+        {
+            return enemieSpriteSets[random.Next(enemieSpriteSets.Length)];
         }
 
         /// <summary>
