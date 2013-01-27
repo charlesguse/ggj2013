@@ -43,8 +43,8 @@ namespace Platformer.Screens
         {
             if (input == null)
                 throw new ArgumentNullException("input");
-
-            if (input.IsPauseGame(ControllingPlayer))
+            PlayerIndex junk;
+            if (input.IsPauseGame(ControllingPlayer) || input.IsMenuSelect(ControllingPlayer, out junk))
             {
                 LoadingScreen.Load(ScreenManager, true, null,
                     new BackgroundScreen(),
