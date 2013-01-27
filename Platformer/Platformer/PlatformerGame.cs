@@ -96,7 +96,7 @@ namespace Unicorn
             try
             {
                 MediaPlayer.IsRepeating = true;
-                MediaPlayer.Play(Content.Load<Song>("Sounds/Music"));
+                MediaPlayer.Play(Content.Load<Song>("Sounds/Level Loop Unicorn Fantasy"));
             }
             catch { }
 

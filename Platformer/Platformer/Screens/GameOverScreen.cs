@@ -107,9 +107,12 @@ namespace Platformer.Screens
                 diabeetusTime = (float)(ScreenManager.Random.NextDouble() * 3);
                 diabeetusSpawnLocation = new Vector2((float)(ScreenManager.Random.NextDouble() * 1280), (float)(ScreenManager.Random.NextDouble() * 720));
             }
+            //var middle = new Vector2(1280 / 2 - wilford.Width / 2, 720 / 2 - wilford.Height / 2);
+            var middle = new Vector2(1280 / 2, 720 / 2);
+            //Vector2 origin = Vector2.Zero;
+            Vector2 origin = new Vector2(wilford.Width / 2, wilford.Height / 2);
+            ScreenManager.SpriteBatch.Draw(wilford, middle, null, Color.White, (float)Math.Sin(gameTime.TotalGameTime.TotalSeconds), origin, 1f, SpriteEffects.None, 0f);
             ScreenManager.SpriteBatch.Draw(diabeetus, diabeetusSpawnLocation, Color.Black);
-            var middle = new Vector2(1280 / 2 - wilford.Width / 2, 720 / 2 - wilford.Height / 2);
-            ScreenManager.SpriteBatch.Draw(wilford, middle, null, Color.White, (float)Math.Sin(gameTime.TotalGameTime.TotalSeconds), Vector2.Zero, 0f, SpriteEffects.None, 0f);
         }
     }
 }
