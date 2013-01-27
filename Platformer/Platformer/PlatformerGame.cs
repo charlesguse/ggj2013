@@ -162,18 +162,20 @@ namespace Unicorn
 
         private void LoadNextLevel()
         {
-            // move to the next level
-            Level.LoadLevelAmount();
-            levelIndex = ScreenManager.Random.Next(Level.NumberOfLevels);
-            //levelIndex = 8;
-            // Unloads the content for the current level before loading the next one.
-            if (level != null)
-                level.Dispose();
+            level = new Level(ScreenManager);
 
-            // Load the level.
-            string levelPath = string.Format("Content/Levels/{0}.txt", levelIndex);
-            using (Stream fileStream = TitleContainer.OpenStream(levelPath))
-                level = new Level(ScreenManager, fileStream, levelIndex);
+            //// move to the next level
+            //Level.LoadLevelAmount();
+            //levelIndex = ScreenManager.Random.Next(Level.NumberOfLevels);
+            //levelIndex = 1;
+            //// Unloads the content for the current level before loading the next one.
+            ////if (level != null)
+            ////    level.Dispose();
+
+            //// Load the level.
+            //string levelPath = string.Format("Content/Levels/{0}.txt", levelIndex);
+            //using (Stream fileStream = TitleContainer.OpenStream(levelPath))
+            //    level = new Level(ScreenManager, fileStream, levelIndex);
         }
 
         private void ReloadCurrentLevel()
