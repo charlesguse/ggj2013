@@ -121,7 +121,7 @@ namespace Unicorn
             {
                 ScreenManager.AddScreen(new GameOverScreen(Ending.TimeOut), null);
                 LoadingScreen.Load(ScreenManager, true, null,
-                              new GameOverScreen(Ending.TimeOut));
+                              new GameOverScreen(Ending.Diabetes));
             }
             base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
         }
@@ -165,7 +165,7 @@ namespace Unicorn
             // move to the next level
             Level.LoadLevelAmount();
             levelIndex = ScreenManager.Random.Next(Level.NumberOfLevels);
-
+            //levelIndex = 10;
             // Unloads the content for the current level before loading the next one.
             if (level != null)
                 level.Dispose();
