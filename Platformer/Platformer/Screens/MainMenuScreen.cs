@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.IO;
 using System;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
 #endregion
 
 namespace Unicorn
@@ -28,6 +29,8 @@ namespace Unicorn
         public Vector2 DreamTextPosition { get; set; }
         public SpriteFont DreamFont { get; set; }
 
+        private Song nonLoop;
+        private Song loop;
         /// <summary>
         /// Constructor fills in the menu contents.
         /// </summary>
@@ -52,6 +55,9 @@ namespace Unicorn
 
         public override void LoadContent()
         {
+            nonLoop = ScreenManager.Content.Load<Song>("Sounds/MENU MUSIC OPENING DO NOT LOOP");
+            loop = ScreenManager.Content.Load<Song>("Sounds/Olek the Unicorn MAIN MENU MUSIC");
+
             DreamTextPosition = new Vector2(600, 90);
             DreamFont = ScreenManager.Content.Load<SpriteFont>("Fonts/dreamfont");
             int width;
@@ -68,6 +74,8 @@ namespace Unicorn
                     line = reader.ReadLine();
                 }
             }
+            //MediaPlayer.IsRepeating = true;
+            MediaPlayer.Play(nonLoop);
             base.LoadContent();
         }
         #endregion
@@ -135,6 +143,17 @@ namespace Unicorn
             }
 
             ScreenManager.SpriteBatch.End();
+        }
+
+        public override void Update(GameTime gameTime, bool otherScreenHasFocus, bool coveredByOtherScreen)
+        {
+            if (MediaPlayer.State == MediaState.Stopped)
+            {
+                MediaPlayer.IsRepeating = true;
+                MediaPlayer.Play(loop);
+            }
+
+            base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
         }
 
     }

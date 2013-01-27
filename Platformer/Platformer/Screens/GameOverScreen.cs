@@ -9,6 +9,7 @@ using Unicorn.Screens;
 using Unicorn;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
 
 namespace Platformer.Screens
 {
@@ -29,6 +30,9 @@ namespace Platformer.Screens
         private Vector2 diabeetusSpawnLocation;
         private SoundEffect diabeetusSound;
 
+        private Song nonLoop;
+        private Song loop;
+
         public GameOverScreen(Ending ending)
         {
             Ending = ending;
@@ -36,6 +40,9 @@ namespace Platformer.Screens
 
         public override void LoadContent()
         {
+            nonLoop = ScreenManager.Content.Load<Song>("Sounds/MENU MUSIC OPENING DO NOT LOOP");
+            loop = ScreenManager.Content.Load<Song>("Sounds/Olek the Unicorn MAIN MENU MUSIC");
+
             diabeetusSound = ScreenManager.Content.Load<SoundEffect>("Sounds/Wilford");
             background = ScreenManager.Content.Load<Texture2D>("Backgrounds/diabeetusEndGame");
             switch (Ending)
@@ -56,7 +63,21 @@ namespace Platformer.Screens
             wilford = ScreenManager.Content.Load<Texture2D>("Sprites/wilfordHead");
             diabeetus = ScreenManager.Content.Load<Texture2D>("Sprites/diabeetus");
 
+            MediaPlayer.IsRepeating = false;
+            MediaPlayer.Play(nonLoop);
+
             base.LoadContent();
+        }
+
+        public override void Update(GameTime gameTime, bool otherScreenHasFocus, bool coveredByOtherScreen)
+        {
+            if (MediaPlayer.State == MediaState.Stopped)
+            {
+                MediaPlayer.Play(loop);
+                MediaPlayer.IsRepeating = true;
+            }
+
+            base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
         }
 
         public override void HandleInput(InputState input)
