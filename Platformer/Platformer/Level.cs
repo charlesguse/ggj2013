@@ -48,6 +48,8 @@ namespace Unicorn
         private List<Gem> gems = new List<Gem>();
         private List<Enemy> enemies = new List<Enemy>();
 
+        private SoundEffect heartBeat;
+
         // Key locations in the level.        
         private Vector2 start;
         private Point exit = InvalidPosition;
@@ -76,6 +78,7 @@ namespace Unicorn
         TimeSpan timeRemaining;
 
         private const int PointsPerSecond = 5;
+        private SoundEffectInstance heartInstance;
 
         // Level content.        
         //public ContentManager Content { get; set;}
@@ -112,6 +115,7 @@ namespace Unicorn
             //layers[2] = new Layer(ScreenManager.Content, "Backgrounds/Layer2", 0.8f);
 
             // Load sounds.
+            heartBeat = ScreenManager.Content.Load<SoundEffect>("Sounds/GGJ13_Theme");
             //exitReachedSound = ScreenManager.Content.Load<SoundEffect>("Sounds/ExitReached");
             LoadLevelAmount();
         }
@@ -491,6 +495,8 @@ namespace Unicorn
             GamePadState gamePadState
             )
         {
+            TimeSpan previousTime = timeRemaining;
+
             if (player.Position.X / Tile.Width > Width * 0.66f)
                 LoadNextLevel();
 
@@ -532,6 +538,17 @@ namespace Unicorn
             }
 
             // Clamp the time remaining at zero.
+            if (heartInstance == null && timeRemaining < new TimeSpan(0, 0, 11))
+            {
+                heartInstance = heartBeat.CreateInstance();
+                heartInstance.Play();
+            }
+            if (heartInstance != null && timeRemaining > new TimeSpan(0, 0, 11))
+            {
+                heartInstance.Stop();
+                heartInstance = null;
+            }
+
             if (timeRemaining < TimeSpan.Zero)
                 timeRemaining = TimeSpan.Zero;
         }
