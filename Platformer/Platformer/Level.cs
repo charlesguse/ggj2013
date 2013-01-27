@@ -99,7 +99,7 @@ namespace Unicorn
         /// <param name="fileStream">
         /// A stream containing the tile data.
         /// </param>
-        public Level(ScreenManager screenManager, Stream fileStream, int levelIndex)
+        public Level(ScreenManager screenManager)
         {
             // Create a new content manager to load content used just by this level.
             ScreenManager = screenManager;
@@ -107,7 +107,7 @@ namespace Unicorn
             timeRemaining = TimeSpan.FromMinutes(2);
 
             levelTiles = new List<Tile[]>();
-            LoadTiles(fileStream);
+            //LoadTiles(fileStream);
 
             layers = new Layer[2];
             layers[0] = new Layer(ScreenManager.Content, "Backgrounds/background0", 0.2f);
@@ -118,6 +118,7 @@ namespace Unicorn
             heartBeat = ScreenManager.Content.Load<SoundEffect>("Sounds/GGJ13_Theme");
             //exitReachedSound = ScreenManager.Content.Load<SoundEffect>("Sounds/ExitReached");
             LoadLevelAmount();
+            LoadNextLevel();
         }
 
         public static void LoadLevelAmount()
@@ -497,8 +498,11 @@ namespace Unicorn
         {
             TimeSpan previousTime = timeRemaining;
 
-            if (player.Position.X / Tile.Width > Width * 0.66f)
+            if (player.Position.X + 1280 > Width * Tile.Width)
                 LoadNextLevel();
+
+            //if (player.Position.X / Tile.Width > Width * 0.66f)
+            //    LoadNextLevel();
 
             // Pause while the player is dead or time is expired.
             if (!Player.IsAlive || TimeRemaining == TimeSpan.Zero)
@@ -556,6 +560,7 @@ namespace Unicorn
         private void LoadNextLevel()
         {
             int levelIndex = levelIndex = ScreenManager.Random.Next(NumberOfLevels);
+            levelIndex = 5;
             string levelPath = string.Format("Content/Levels/{0}.txt", levelIndex);
             using (Stream fileStream = TitleContainer.OpenStream(levelPath))
                 LoadTiles(fileStream);

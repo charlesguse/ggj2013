@@ -28,7 +28,7 @@ namespace Unicorn.PowerUps
         {
             Level.TimeRemaining += new TimeSpan(0, 0, 2);
             Level.Player.Fattyfatness += 0.10f;
-            Level.Player.MoveAcceleration += 100;
+            //Level.Player.MoveAcceleration += 100;
             base.OnCollected(collectedBy);
         }
     }

@@ -26,7 +26,7 @@ namespace Unicorn
     {
         private const float HighFatThreshold = 0.75f;
         private const float LowFatThreshold = 0.25f;
-        private const float FastTimeModifier = 3.0f;
+        private const float FastTimeModifier = 2.0f;
         private const float SlowSpeedModifier = 0.75f;
 
         // Animations
@@ -88,7 +88,7 @@ namespace Unicorn
         private float speedModifier = 1.0f;
 
         // Constants for controling horizontal movement
-        public float MoveAcceleration = 13000.0f;
+        public float MoveAcceleration = 15000.0f;
         private const float MaxMoveSpeed = 1750.0f;
         private const float GroundDragFactor = 0.48f;
         private const float AirDragFactor = 0.58f;
@@ -447,6 +447,7 @@ namespace Unicorn
         public void OnKilled(Enemy killedBy)
         {
             isAlive = false;
+            Journal.journalPiece = 0;
 
             if (killedBy != null)
                 killedSound.Play();
