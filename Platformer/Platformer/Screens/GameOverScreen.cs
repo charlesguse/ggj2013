@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Unicorn.Screens;
 using Unicorn;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Platformer.Screens
 {
@@ -20,10 +21,22 @@ namespace Platformer.Screens
     public class GameOverScreen : GameScreen
     {
         public Ending Ending { get; set; }
+        private Texture2D background { get; set; }
+        private Texture2D wilford { get; set; }
+        private Texture2D diabeetus { get; set; }
 
         public GameOverScreen(Ending ending)
         {
             Ending = ending;
+        }
+
+        public override void LoadContent()
+        {
+            background = ScreenManager.Content.Load<Texture2D>("Backgrounds/endGame");
+            //wilford = ScreenManager.Content.Load<Texture2D>("Backgrounds/wilfordHead");
+            //diabeetus = ScreenManager.Content.Load<Texture2D>("Backgrounds/diabeetus");
+
+            base.LoadContent();
         }
 
         public override void HandleInput(InputState input)
@@ -46,6 +59,8 @@ namespace Platformer.Screens
             ScreenManager.GraphicsDevice.Clear(Color.Black);
 
             ScreenManager.SpriteBatch.Begin();
+            //Scree
+
             switch (Ending)
             {
                 case Ending.Win:

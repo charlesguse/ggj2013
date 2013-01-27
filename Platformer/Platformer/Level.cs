@@ -35,7 +35,7 @@ namespace Unicorn
         // The layer which entities are drawn on top of.
         private const int EntityLayer = 1;
 
-        private const int numberOfLevels = 3;
+        public static int NumberOfLevels = -1;
         private int levelHeight = 0;
 
         // Entities in the level.
@@ -54,7 +54,6 @@ namespace Unicorn
         private static readonly Point InvalidPosition = new Point(-1, -1);
 
         // Level game state.
-        private Random random = new Random(354668); // Arbitrary, but constant seed
         private float cameraPosition;
 
         public int Score
@@ -84,7 +83,7 @@ namespace Unicorn
 
         //private SoundEffect exitReachedSound;
 
-        
+
 
         #region Loading
 
@@ -102,7 +101,7 @@ namespace Unicorn
             // Create a new content manager to load content used just by this level.
             ScreenManager = screenManager;
 
-            timeRemaining = TimeSpan.FromMinutes(0.1);
+            timeRemaining = TimeSpan.FromMinutes(2);
 
             levelTiles = new List<Tile[]>();
             LoadTiles(fileStream);
@@ -114,6 +113,36 @@ namespace Unicorn
 
             // Load sounds.
             //exitReachedSound = ScreenManager.Content.Load<SoundEffect>("Sounds/ExitReached");
+            LoadLevelAmount();
+        }
+
+        public static void LoadLevelAmount()
+        {
+            if (NumberOfLevels == -1)
+            {
+                int i = 0;
+                try
+                {
+
+                    while (true)
+                    {
+                        using (StreamReader reader = new StreamReader(string.Format("Content/Levels/{0}.txt", i)))
+                        {
+                            string line = reader.ReadToEnd();
+                            foreach (char c in line)
+                            {
+                                if (c != '\r' && c != '\n')
+                                {
+                                    //LoadTile(c, 0, 0);
+                                }
+                            }
+                        }
+                        i++;
+                    }
+                }
+                catch (FileNotFoundException) { }
+                NumberOfLevels = i;
+            }
         }
 
         /// <summary>
@@ -129,7 +158,7 @@ namespace Unicorn
             List<string> newLevelLines = ReadAndValidateLevelFile(fileStream);
             int newLevelWidth = newLevelLines[0].Length;
 
-            
+
             // Loop over every tile position
             int initialWidth = this.Width;
             for (int x = 0; x < newLevelWidth; ++x)
@@ -239,6 +268,7 @@ namespace Unicorn
 
                 // Impassable block
                 case 'X':
+                case 'x':
                     return LoadTile("Impassable", TileCollision.Impassable);
 
                 // Top Double Impassable block
@@ -273,7 +303,7 @@ namespace Unicorn
 
         private string GetRandomMonster()
         {
-            return enemieSpriteSets[random.Next(enemieSpriteSets.Length)];
+            return enemieSpriteSets[ScreenManager.Random.Next(enemieSpriteSets.Length)];
         }
 
         /// <summary>
@@ -305,7 +335,7 @@ namespace Unicorn
         /// </param>
         private Tile LoadVarietyTile(string baseName, int variationCount, TileCollision collision)
         {
-            int index = random.Next(variationCount);
+            int index = ScreenManager.Random.Next(variationCount);
             return LoadTile(baseName + index, collision);
         }
 
@@ -368,9 +398,9 @@ namespace Unicorn
             const int numberOfPowerups = 4;
             const float probabilityOfPowerup = 0.75f;
 
-            if (random.NextDouble() > probabilityOfPowerup)
+            if (ScreenManager.Random.NextDouble() > probabilityOfPowerup)
             {
-                int powerupToLoad = random.Next(numberOfPowerups);
+                int powerupToLoad = ScreenManager.Random.Next(numberOfPowerups);
                 switch (powerupToLoad)
                 {
                     case 0:
@@ -508,7 +538,7 @@ namespace Unicorn
 
         private void LoadNextLevel()
         {
-            int levelIndex = levelIndex = random.Next(numberOfLevels);
+            int levelIndex = levelIndex = ScreenManager.Random.Next(NumberOfLevels);
             string levelPath = string.Format("Content/Levels/{0}.txt", levelIndex);
             using (Stream fileStream = TitleContainer.OpenStream(levelPath))
                 LoadTiles(fileStream);

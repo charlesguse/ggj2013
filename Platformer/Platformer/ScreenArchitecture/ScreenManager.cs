@@ -32,6 +32,7 @@ namespace Unicorn.ScreenArchitecture
         List<GameScreen> screens = new List<GameScreen>();
         List<GameScreen> screensToUpdate = new List<GameScreen>();
 
+        public Random Random = new Random();//Random(354668); // Arbitrary, but constant seed
         InputState input = new InputState();
 
         SpriteBatch spriteBatch;
