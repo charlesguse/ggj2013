@@ -36,6 +36,5 @@ namespace Unicorn
             spriteBatch.Draw(Textures[(leftSegment + 1) % Textures.Length], new Vector2(x + segmentWidth, 0.0f), Color.White);
             spriteBatch.Draw(Textures[(leftSegment + 2) % Textures.Length], new Vector2(x + segmentWidth + segmentWidth, 0.0f), Color.White);
         }
-
     }
 }
