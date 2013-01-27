@@ -125,6 +125,7 @@ namespace Unicorn
         private float jumpTime;
 
         private Rectangle localBounds;
+        private Rectangle inverseBounds;
         /// <summary>
         /// Gets a rectangle which bounds this player in world space.
         /// </summary>
@@ -132,7 +133,8 @@ namespace Unicorn
         {
             get
             {
-                int left = (int)Math.Round(Position.X - sprite.Origin.X) + localBounds.X;
+                int boundsX = (this.flip == SpriteEffects.FlipHorizontally) ? inverseBounds.X : localBounds.X;
+                int left = (int)Math.Round(Position.X - sprite.Origin.X) + boundsX;
                 int top = (int)(Math.Round(Position.Y - sprite.Origin.Y) + localBounds.Y);
 
                 return new Rectangle(left, top, localBounds.Width, localBounds.Height);
@@ -164,11 +166,13 @@ namespace Unicorn
             dieAnimation = new Animation(Level.ScreenManager.Content.Load<Texture2D>("Sprites/Player/unicorn"), 0.1f, false);
 
             // Calculate bounds within texture size.            
-            int width = (int)(idleAnimation.FrameHeight * 0.4);
+            int width = (int)(idleAnimation.FrameHeight * 0.68);
             int left = (idleAnimation.FrameHeight - width) / 2;
-            int height = (int)(idleAnimation.FrameHeight * 0.8);
+            int height = (int)(idleAnimation.FrameHeight * 0.54);
             int top = idleAnimation.FrameHeight - height;
-            localBounds = new Rectangle(left, top, width, height);
+            int leftShift = (int)(idleAnimation.FrameHeight * 0.06);
+            localBounds = new Rectangle(left + leftShift, top, width, height);
+            inverseBounds = new Rectangle(left - leftShift, top, width, height);
 
             // Load sounds.            
             killedSound = Level.ScreenManager.Content.Load<SoundEffect>("Sounds/GOOD WHINNY SFX");
