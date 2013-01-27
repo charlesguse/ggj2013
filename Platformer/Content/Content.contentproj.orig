@@ -174,13 +174,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Sounds\ASPIRIN SFX.wav">
-      <Name>ASPIRIN SFX</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Sprites\PowerUps\Aspirin 1.png">
       <Name>Aspirin 1</Name>
       <Importer>TextureImporter</Importer>

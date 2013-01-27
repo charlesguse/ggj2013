@@ -76,11 +76,11 @@
     <Compile Include="Enemy.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Layer.cs" />
-<<<<<<< local
+    <Compile Include="PowerUps\Aspirin.cs" />
+    <Compile Include="PowerUps\Salmon.cs" />
+    <Compile Include="PowerUps\Sandwhich.cs" />
     <Compile Include="PowerUps\Journal.cs" />
-=======
-    <Compile Include="PowerUps\Burger.cs" />
->>>>>>> other
+    <Compile Include="PowerUps\EnergyDrink.cs" />
     <Compile Include="PowerUps\Gem.cs" />
     <Compile Include="Level.cs" />
     <Compile Include="PlatformerGame.cs" />
@@ -92,6 +92,7 @@
     <Compile Include="ScreenArchitecture\InputState.cs" />
     <Compile Include="ScreenArchitecture\ScreenManager.cs" />
     <Compile Include="Screens\BackgroundScreen.cs" />
+    <Compile Include="Screens\GameOverScreen.cs" />
     <Compile Include="Screens\GameplayScreen.cs" />
     <Compile Include="Screens\LoadingScreen.cs" />
     <Compile Include="Screens\MainMenuScreen.cs" />
@@ -130,11 +131,6 @@
       <ProductName>Microsoft XNA Framework Redistributable 4.0</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Background.png" />
-    <Content Include="Game.ico" />
-    <Content Include="GameThumbnail.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
