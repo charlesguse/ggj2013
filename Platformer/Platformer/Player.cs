@@ -446,30 +446,34 @@ namespace Unicorn
         /// </param>
         public void OnKilled(Enemy killedBy)
         {
-            isAlive = false;
-            Journal.journalPiece = 0;
-
-            if (killedBy != null)
-                killedSound.Play();
-            else
-                fallSound.Play();
-
-            sprite.PlayAnimation(dieAnimation);
-
-            if (Journal.AllJournalPiecesFound())
+            if (isAlive)
             {
-                LoadingScreen.Load(Level.ScreenManager, true, null,
-                                   new GameOverScreen(Ending.Win));
-            }
-            else if (killedBy != null && FatIsTooHigh())
-            {
-                LoadingScreen.Load(Level.ScreenManager, true, null,
-                                   new GameOverScreen(Ending.Diabetes));
-            }
-            else
-            {
-                LoadingScreen.Load(Level.ScreenManager, true, null,
-                                   new GameOverScreen(Ending.Death));
+                isAlive = false;
+
+                if (killedBy != null)
+                    killedSound.Play();
+                else
+                    fallSound.Play();
+
+                sprite.PlayAnimation(dieAnimation);
+
+                if (Journal.AllJournalPiecesFound())
+                {
+                    LoadingScreen.Load(Level.ScreenManager, true, null,
+                                       new GameOverScreen(Ending.Win));
+                }
+                else if (killedBy != null && FatIsTooHigh())
+                {
+                    LoadingScreen.Load(Level.ScreenManager, true, null,
+                                       new GameOverScreen(Ending.Diabetes));
+                }
+                else
+                {
+                    LoadingScreen.Load(Level.ScreenManager, true, null,
+                                       new GameOverScreen(Ending.Death));
+                }
+
+                Journal.journalPiece = 0;
             }
         }
 
