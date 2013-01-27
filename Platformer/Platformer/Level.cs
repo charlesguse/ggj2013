@@ -560,7 +560,7 @@ namespace Unicorn
         private void LoadNextLevel()
         {
             int levelIndex = levelIndex = ScreenManager.Random.Next(NumberOfLevels);
-            levelIndex = 5;
+            //levelIndex = 20;
             string levelPath = string.Format("Content/Levels/{0}.txt", levelIndex);
             using (Stream fileStream = TitleContainer.OpenStream(levelPath))
                 LoadTiles(fileStream);
