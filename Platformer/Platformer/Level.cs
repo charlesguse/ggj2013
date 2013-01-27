@@ -115,7 +115,7 @@ namespace Unicorn
             //layers[2] = new Layer(ScreenManager.Content, "Backgrounds/Layer2", 0.8f);
 
             // Load sounds.
-            heartBeat = ScreenManager.Content.Load<SoundEffect>("Sounds/GGJ13_Theme");
+            heartBeat = ScreenManager.Content.Load<SoundEffect>("Sounds/heart 3");
             //exitReachedSound = ScreenManager.Content.Load<SoundEffect>("Sounds/ExitReached");
             LoadLevelAmount();
             LoadNextLevel();
@@ -542,12 +542,12 @@ namespace Unicorn
             }
 
             // Clamp the time remaining at zero.
-            if (heartInstance == null && timeRemaining < new TimeSpan(0, 0, 11))
+            if (heartInstance == null && timeRemaining < new TimeSpan(0, 0, 6))
             {
                 heartInstance = heartBeat.CreateInstance();
                 heartInstance.Play();
             }
-            if (heartInstance != null && timeRemaining > new TimeSpan(0, 0, 11))
+            if (heartInstance != null && timeRemaining > new TimeSpan(0, 0, 6))
             {
                 heartInstance.Stop();
                 heartInstance = null;

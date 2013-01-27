@@ -467,13 +467,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Sounds\Level Loop Unicorn Fantasy.wav">
-      <Name>Level Loop Unicorn Fantasy</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SongProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Levels\11.txt">
       <Name>11</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -534,6 +527,20 @@
     </Compile>
     <Compile Include="Sounds\Olek the Unicorn MAIN MENU MUSIC.wav">
       <Name>Olek the Unicorn MAIN MENU MUSIC</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SongProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Sounds\heart 3.wav">
+      <Name>heart 3</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Sounds\FINAL LEVEL LOOP 2.wav">
+      <Name>FINAL LEVEL LOOP 2</Name>
       <Importer>WavImporter</Importer>
       <Processor>SongProcessor</Processor>
     </Compile>
