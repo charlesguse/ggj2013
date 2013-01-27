@@ -121,7 +121,7 @@ namespace Unicorn
             {
                 ScreenManager.AddScreen(new GameOverScreen(Ending.TimeOut), null);
                 LoadingScreen.Load(ScreenManager, true, null,
-                              new GameOverScreen(Ending.Diabetes));
+                              new GameOverScreen(Ending.TimeOut));
             }
             base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
         }

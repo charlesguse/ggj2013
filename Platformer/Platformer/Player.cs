@@ -168,7 +168,7 @@ namespace Unicorn
             // Calculate bounds within texture size.            
             int width = (int)(idleAnimation.FrameHeight * 0.68);
             int left = (idleAnimation.FrameHeight - width) / 2;
-            int height = (int)(idleAnimation.FrameHeight * 0.54);
+            int height = (int)(idleAnimation.FrameHeight * 0.40);
             int top = idleAnimation.FrameHeight - height;
             int leftShift = (int)(idleAnimation.FrameHeight * 0.06);
             localBounds = new Rectangle(left + leftShift, top, width, height);
