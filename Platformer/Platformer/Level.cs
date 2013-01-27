@@ -104,7 +104,7 @@ namespace Unicorn
             // Create a new content manager to load content used just by this level.
             ScreenManager = screenManager;
 
-            timeRemaining = TimeSpan.FromMinutes(2);
+            timeRemaining = TimeSpan.FromMinutes(.1);
 
             levelTiles = new List<Tile[]>();
             LoadTiles(fileStream);
