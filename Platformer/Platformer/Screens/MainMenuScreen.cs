@@ -75,7 +75,7 @@ namespace Unicorn
                     line = reader.ReadLine();
                 }
             }
-            //MediaPlayer.IsRepeating = true;
+            MediaPlayer.IsRepeating = false;
             MediaPlayer.Play(nonLoop);
             base.LoadContent();
         }
