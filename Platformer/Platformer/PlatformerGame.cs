@@ -212,12 +212,12 @@ namespace Unicorn
 
             // Draw score
             float timeHeight = hudFont.MeasureString(timeString).Y;
-            DrawShadowedString(hudFont, "SCORE: " + level.Score.ToString(), hudLocation + new Vector2(0.0f, timeHeight * 1.2f), Color.Yellow);
+            //DrawShadowedString(hudFont, "SCORE: " + level.Score.ToString(), hudLocation + new Vector2(0.0f, timeHeight * 1.2f), Color.Yellow);
 
             string fatString = "FATTY FATNESS: " + (int)(level.Player.Fattyfatness * 100);
             Color fatColor;
             fatColor = (level.Player.FatIsTooHigh() || level.Player.FatIsTooLow()) ? Color.Red : Color.Yellow;
-            DrawShadowedString(hudFont, fatString, hudLocation + new Vector2(0.0f, timeHeight * 2.4f), fatColor);
+            DrawShadowedString(hudFont, fatString, hudLocation + new Vector2(0.0f, timeHeight * 1.2f), fatColor);
 
             ScreenManager.SpriteBatch.End();
         }

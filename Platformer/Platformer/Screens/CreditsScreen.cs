@@ -16,7 +16,7 @@ namespace Platformer.Screens
 
         public override void LoadContent()
         {
-            background = ScreenManager.Content.Load<Texture2D>("Backgrounds/diabeetusEndGame");
+            background = ScreenManager.Content.Load<Texture2D>("Backgrounds/CreditsScreen");
             base.LoadContent();
         }
 
