@@ -20,14 +20,16 @@ namespace Platformer.Screens
         TimeOut,
         Death
     }
+
     public class GameOverScreen : GameScreen
     {
         public Ending Ending { get; set; }
         private Texture2D background { get; set; }
         private Texture2D wilford { get; set; }
         private Texture2D diabeetus { get; set; }
-        private float diabeetusTime;
         private Vector2 diabeetusSpawnLocation;
+        private Vector2 wilfordLocation;
+        private Vector2 wilfordVelocity;
         private SoundEffect diabeetusSound;
 
         private Song nonLoop;
@@ -36,6 +38,9 @@ namespace Platformer.Screens
         public GameOverScreen(Ending ending)
         {
             Ending = ending;
+
+            wilfordLocation = new Vector2(1280 / 2, 720 / 2);
+            wilfordVelocity = new Vector2(200, 200);
         }
 
         public override void LoadContent()
@@ -54,8 +59,10 @@ namespace Platformer.Screens
                     background = ScreenManager.Content.Load<Texture2D>("Backgrounds/diabeetusEndGame");
                     break;
                 case Ending.TimeOut:
+                    background = ScreenManager.Content.Load<Texture2D>("Backgrounds/endGameAllother");
                     break;
                 case Ending.Death:
+                    background = ScreenManager.Content.Load<Texture2D>("Backgrounds/endGameAllother");
                     break;
                 default:
                     break;
@@ -91,13 +98,10 @@ namespace Platformer.Screens
                     new BackgroundScreen(),
                     new MainMenuScreen());
             }
-            //LoadingScreen.Load(Level.ScreenManager, true, null,
-            //                   new GameOverScreen(Ending.Death));
         }
 
         public override void  Draw(GameTime gameTime)
         {
-            diabeetusTime -= (float)gameTime.ElapsedGameTime.TotalSeconds;
             ScreenManager.GraphicsDevice.Clear(Color.Black);
 
             ScreenManager.SpriteBatch.Begin();
@@ -108,12 +112,6 @@ namespace Platformer.Screens
                 case Ending.Diabetes:
                     DrawDiabeetusStuff(gameTime);
                     break;
-                case Ending.TimeOut:
-                    ScreenManager.SpriteBatch.DrawString(ScreenManager.Font, "Time Out!", new Vector2(1280 / 2, 720 / 2), Color.White);
-                    break;
-                case Ending.Death:
-                    ScreenManager.SpriteBatch.DrawString(ScreenManager.Font, "Death!", new Vector2(1280 / 2, 720 / 2), Color.White);
-                    break;
                 default:
                     break;
             }
@@ -122,18 +120,29 @@ namespace Platformer.Screens
 
         private void DrawDiabeetusStuff(GameTime gameTime)
         {
-            if (diabeetusTime <= 0)
+            float wilfordNewX = wilfordLocation.X + wilfordVelocity.X;
+            float wilfordNewY = wilfordLocation.Y + wilfordVelocity.Y;
+            if (wilfordNewX < 0 || wilfordNewX > 1280)
             {
-                diabeetusSound.Play();
-                diabeetusTime = (float)(ScreenManager.Random.NextDouble() * 3);
-                diabeetusSpawnLocation = new Vector2((float)(ScreenManager.Random.NextDouble() * 1280), (float)(ScreenManager.Random.NextDouble() * 720));
+                wilfordVelocity.X *= -1;
+                PlayDiabeetus();
             }
-            //var middle = new Vector2(1280 / 2 - wilford.Width / 2, 720 / 2 - wilford.Height / 2);
-            var middle = new Vector2(1280 / 2, 720 / 2);
-            //Vector2 origin = Vector2.Zero;
+            if (wilfordNewY < 0 || wilfordNewY > 720)
+            {
+                wilfordVelocity.Y *= -1;
+                PlayDiabeetus();
+            }
+
+            wilfordLocation += wilfordVelocity*(float)gameTime.ElapsedGameTime.TotalSeconds;
             Vector2 origin = new Vector2(wilford.Width / 2, wilford.Height / 2);
-            ScreenManager.SpriteBatch.Draw(wilford, middle, null, Color.White, (float)Math.Sin(gameTime.TotalGameTime.TotalSeconds), origin, 1f, SpriteEffects.None, 0f);
+            ScreenManager.SpriteBatch.Draw(wilford, wilfordLocation, null, Color.White, (float)Math.Sin(gameTime.TotalGameTime.TotalSeconds), origin, 1f, SpriteEffects.None, 0f);
             ScreenManager.SpriteBatch.Draw(diabeetus, diabeetusSpawnLocation, Color.Black);
+        }
+
+        private void PlayDiabeetus()
+        {
+            diabeetusSound.Play();
+            diabeetusSpawnLocation = new Vector2((float)(ScreenManager.Random.NextDouble() * 1200), (float)(ScreenManager.Random.NextDouble() * 700));
         }
     }
 }
