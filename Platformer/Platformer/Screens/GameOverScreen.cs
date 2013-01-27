@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using Unicorn.ScreenArchitecture;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
+using Unicorn.Screens;
+using Unicorn;
 
 namespace Platformer.Screens
 {
@@ -23,12 +26,22 @@ namespace Platformer.Screens
             Ending = ending;
         }
 
-        public void HandleInput()
+        public override void HandleInput(InputState input)
         {
+            if (input == null)
+                throw new ArgumentNullException("input");
 
+            if (input.IsPauseGame(ControllingPlayer))
+            {
+                LoadingScreen.Load(ScreenManager, true, null,
+                    new BackgroundScreen(),
+                    new MainMenuScreen());
+            }
+            //LoadingScreen.Load(Level.ScreenManager, true, null,
+            //                   new GameOverScreen(Ending.Death));
         }
 
-        public void Draw()
+        public override void  Draw(GameTime gameTime)
         {
             ScreenManager.GraphicsDevice.Clear(Color.Black);
 
@@ -50,7 +63,6 @@ namespace Platformer.Screens
                 default:
                     break;
             }
-
             ScreenManager.SpriteBatch.End();
         }
     }

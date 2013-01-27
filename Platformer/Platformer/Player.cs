@@ -13,6 +13,9 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
+using Unicorn.Screens;
+using Platformer.Screens;
+using Unicorn.PowerUps;
 
 namespace Unicorn
 {
@@ -446,6 +449,27 @@ namespace Unicorn
                 fallSound.Play();
 
             sprite.PlayAnimation(dieAnimation);
+
+            if (Journal.AllJournalPiecesFound())
+            {
+                LoadingScreen.Load(Level.ScreenManager, true, null,
+                                   new GameOverScreen(Ending.Win));
+            }
+            else if (killedBy != null /* AND FAT */)
+            {
+                LoadingScreen.Load(Level.ScreenManager, true, null,
+                                   new GameOverScreen(Ending.Diabetes));
+            }
+            else if (killedBy != null) // NOT FAT
+            {
+                LoadingScreen.Load(Level.ScreenManager, true, null,
+                                   new GameOverScreen(Ending.Death));
+            }
+            else
+            {
+                LoadingScreen.Load(Level.ScreenManager, true, null,
+                                   new GameOverScreen(Ending.TimeOut));
+            }
         }
 
         /// <summary>
