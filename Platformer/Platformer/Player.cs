@@ -13,6 +13,9 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
+using Unicorn.Screens;
+using Platformer.Screens;
+using Unicorn.PowerUps;
 
 namespace Unicorn
 {
@@ -85,7 +88,7 @@ namespace Unicorn
         private float speedModifier = 1.0f;
 
         // Constants for controling horizontal movement
-        private const float MoveAcceleration = 13000.0f;
+        public float MoveAcceleration = 13000.0f;
         private const float MaxMoveSpeed = 1750.0f;
         private const float GroundDragFactor = 0.48f;
         private const float AirDragFactor = 0.58f;
@@ -214,6 +217,7 @@ namespace Unicorn
                 }
             }
 
+            Fattyfatness -= .0005f;
             // Clear input.
             movement = 0.0f;
             isJumping = false;
@@ -446,6 +450,22 @@ namespace Unicorn
                 fallSound.Play();
 
             sprite.PlayAnimation(dieAnimation);
+
+            if (Journal.AllJournalPiecesFound())
+            {
+                LoadingScreen.Load(Level.ScreenManager, true, null,
+                                   new GameOverScreen(Ending.Win));
+            }
+            else if (killedBy != null && FatIsTooHigh())
+            {
+                LoadingScreen.Load(Level.ScreenManager, true, null,
+                                   new GameOverScreen(Ending.Diabetes));
+            }
+            else
+            {
+                LoadingScreen.Load(Level.ScreenManager, true, null,
+                                   new GameOverScreen(Ending.Death));
+            }
         }
 
         /// <summary>

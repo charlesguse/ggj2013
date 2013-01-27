@@ -26,8 +26,8 @@ namespace Unicorn.PowerUps
 
         public override void OnCollected(Player collectedBy)
         {
-            Level.TimeRemaining += new TimeSpan(0, 0, 15);
-            Level.Player.Fattyfatness += 0.02f;
+            Level.TimeRemaining += new TimeSpan(0, 0, 3);
+            Level.Player.Fattyfatness += 0.20f;
             base.OnCollected(collectedBy);
         }
     }

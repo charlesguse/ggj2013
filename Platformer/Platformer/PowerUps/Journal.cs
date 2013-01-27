@@ -26,27 +26,7 @@ namespace Unicorn.PowerUps
         {
             if (JournalDoc == null)
             {
-                int i = 0;
-
-                try
-                {
-                    JournalDoc = new List<string>();
-                    while (true)
-                    {
-                        using (StreamReader reader = new StreamReader(string.Format("Content/Story/{0}.txt", i++)))
-                        {
-                            string line = reader.ReadToEnd();
-                            if (line != null)
-                            {
-                                JournalDoc.Add(line);
-                            }
-                        }
-                    }
-                }
-                catch 
-                {
-                    journalMax = i - 1;
-                }
+                LoadStories();
             }
 
             //Texture = Level.Content.Load<Texture2D>("Sprites/PowerUps/Goblet filled stem");
@@ -54,6 +34,31 @@ namespace Unicorn.PowerUps
             //origin = new Vector2(texture.Width / 2.0f, texture.Height / 2.0f);
             CollectedSound = Level.ScreenManager.Content.Load<SoundEffect>("Sounds/PAPER SFX");
             base.LoadContent();
+        }
+
+        public static void LoadStories()
+        {
+            int i = 0;
+
+            try
+            {
+                JournalDoc = new List<string>();
+                while (true)
+                {
+                    using (StreamReader reader = new StreamReader(string.Format("Content/Story/{0}.txt", i++)))
+                    {
+                        string line = reader.ReadToEnd();
+                        if (line != null)
+                        {
+                            JournalDoc.Add(line);
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                journalMax = i - 1;
+            }
         }
 
         public override void OnCollected(Player collectedBy)
@@ -75,6 +80,10 @@ namespace Unicorn.PowerUps
 
         public static bool AllJournalPiecesFound()
         {
+            if (JournalDoc == null)
+            {
+                LoadStories();
+            }
             return journalPiece >= journalMax;
         }
     }

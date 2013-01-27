@@ -16,6 +16,8 @@ using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Input.Touch;
 using Unicorn.ScreenArchitecture;
 using Microsoft.Xna.Framework.Content;
+using Unicorn.Screens;
+using Platformer.Screens;
 
 
 namespace Unicorn
@@ -32,9 +34,9 @@ namespace Unicorn
         // Global content.
         private SpriteFont hudFont;
 
-        private Texture2D winOverlay;
-        private Texture2D loseOverlay;
-        private Texture2D diedOverlay;
+        //private Texture2D winOverlay;
+        //private Texture2D loseOverlay;
+        //private Texture2D diedOverlay;
 
         // Meta-level game state.
         private int levelIndex = -1;
@@ -50,24 +52,24 @@ namespace Unicorn
         private KeyboardState keyboardState;
         //private TouchCollection touchState;
         //private AccelerometerState accelerometerState;
-        
+
         // The number of levels in the Levels directory of our content. We assume that
         // levels in our content are 0-based and that all numbers under this constant
         // have a level file present. This allows us to not need to check for the file
         // or handle exceptions, both of which can add unnecessary time to level loading.
-        private const int numberOfLevels = 3;
+        private const int numberOfLevels = 7;
 
         public PlatformerGame()
         {
-//            graphics = new GraphicsDeviceManager(this);
-//            Content.RootDirectory = "Content";
+            //            graphics = new GraphicsDeviceManager(this);
+            //            Content.RootDirectory = "Content";
 
-//#if WINDOWS_PHONE
-//            graphics.IsFullScreen = true;
-//            TargetElapsedTime = TimeSpan.FromTicks(333333);
-//#endif
+            //#if WINDOWS_PHONE
+            //            graphics.IsFullScreen = true;
+            //            TargetElapsedTime = TimeSpan.FromTicks(333333);
+            //#endif
 
-//            Accelerometer.Initialize();
+            //            Accelerometer.Initialize();
         }
 
         /// <summary>
@@ -83,9 +85,9 @@ namespace Unicorn
             hudFont = Content.Load<SpriteFont>("Fonts/Hud");
 
             // Load overlay textures
-            winOverlay = Content.Load<Texture2D>("Overlays/you_win");
-            loseOverlay = Content.Load<Texture2D>("Overlays/you_lose");
-            diedOverlay = Content.Load<Texture2D>("Overlays/you_died");
+            //winOverlay = Content.Load<Texture2D>("Overlays/you_win");
+            //loseOverlay = Content.Load<Texture2D>("Overlays/you_lose");
+            //diedOverlay = Content.Load<Texture2D>("Overlays/you_died");
 
             //Known issue that you get exceptions if you use Media PLayer while connected to your PC
             //See http://social.msdn.microsoft.com/Forums/en/windowsphone7series/thread/c8a243d2-d360-46b1-96bd-62b1ef268c66
@@ -115,7 +117,13 @@ namespace Unicorn
             // update our level, passing down the GameTime along with all of our input states
             level.Update(gameTime, keyboardState, gamePadState);
 
-            //base.Update(gameTime);
+            if (level.TimeRemaining == TimeSpan.Zero)
+            {
+                ScreenManager.AddScreen(new GameOverScreen(Ending.TimeOut), null);
+                LoadingScreen.Load(ScreenManager, true, null,
+                              new GameOverScreen(Ending.TimeOut));
+            }
+            base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
         }
 
         private void HandleInput()
@@ -155,7 +163,8 @@ namespace Unicorn
         private void LoadNextLevel()
         {
             // move to the next level
-            levelIndex = (levelIndex + 1) % numberOfLevels;
+            Level.LoadLevelAmount();
+            levelIndex = ScreenManager.Random.Next(Level.NumberOfLevels);
 
             // Unloads the content for the current level before loading the next one.
             if (level != null)
@@ -220,31 +229,6 @@ namespace Unicorn
             Color fatColor;
             fatColor = (level.Player.FatIsTooHigh() || level.Player.FatIsTooLow()) ? Color.Red : Color.Yellow;
             DrawShadowedString(hudFont, fatString, hudLocation + new Vector2(0.0f, timeHeight * 2.4f), fatColor);
-           
-            // Determine the status overlay message to show.
-            Texture2D status = null;
-            if (level.TimeRemaining == TimeSpan.Zero)
-            {
-                if (level.ReachedExit)
-                {
-                    status = winOverlay;
-                }
-                else
-                {
-                    status = loseOverlay;
-                }
-            }
-            else if (!level.Player.IsAlive)
-            {
-                status = diedOverlay;
-            }
-
-            if (status != null)
-            {
-                // Draw status message.
-                Vector2 statusSize = new Vector2(status.Width, status.Height);
-                ScreenManager.SpriteBatch.Draw(status, center - statusSize / 2, Color.White);
-            }
 
             ScreenManager.SpriteBatch.End();
         }

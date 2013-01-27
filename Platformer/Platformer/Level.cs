@@ -30,10 +30,12 @@ namespace Unicorn
         private List<Tile[]> levelTiles;
         private Layer[] layers;
 
-        // The layer which entities are drawn on top of.
-        private const int EntityLayer = 0;
+        private string[] enemieSpriteSets = { "Slug", "CakeMonster", "Scorpion" };
 
-        private const int numberOfLevels = 3;
+        // The layer which entities are drawn on top of.
+        private const int EntityLayer = 1;
+
+        public static int NumberOfLevels = -1;
         private int levelHeight = 0;
 
         // Entities in the level.
@@ -52,7 +54,6 @@ namespace Unicorn
         private static readonly Point InvalidPosition = new Point(-1, -1);
 
         // Level game state.
-        private Random random = new Random(354668); // Arbitrary, but constant seed
         private float cameraPosition;
 
         public int Score
@@ -82,7 +83,7 @@ namespace Unicorn
 
         //private SoundEffect exitReachedSound;
 
-        
+
 
         #region Loading
 
@@ -100,18 +101,48 @@ namespace Unicorn
             // Create a new content manager to load content used just by this level.
             ScreenManager = screenManager;
 
-            timeRemaining = TimeSpan.FromMinutes(2.0);
+            timeRemaining = TimeSpan.FromMinutes(2);
 
             levelTiles = new List<Tile[]>();
             LoadTiles(fileStream);
 
-            layers = new Layer[1];
+            layers = new Layer[2];
             layers[0] = new Layer(ScreenManager.Content, "Backgrounds/background0", 0.2f);
-            //layers[1] = new Layer(ScreenManager.Content, "Backgrounds/Layer1", 0.5f);
+            layers[1] = new Layer(ScreenManager.Content, "Backgrounds/clouds0", 0.8f);
             //layers[2] = new Layer(ScreenManager.Content, "Backgrounds/Layer2", 0.8f);
 
             // Load sounds.
             //exitReachedSound = ScreenManager.Content.Load<SoundEffect>("Sounds/ExitReached");
+            LoadLevelAmount();
+        }
+
+        public static void LoadLevelAmount()
+        {
+            if (NumberOfLevels == -1)
+            {
+                int i = 0;
+                try
+                {
+
+                    while (true)
+                    {
+                        using (StreamReader reader = new StreamReader(string.Format("Content/Levels/{0}.txt", i)))
+                        {
+                            string line = reader.ReadToEnd();
+                            foreach (char c in line)
+                            {
+                                if (c != '\r' && c != '\n')
+                                {
+                                    //LoadTile(c, 0, 0);
+                                }
+                            }
+                        }
+                        i++;
+                    }
+                }
+                catch (FileNotFoundException) { }
+                NumberOfLevels = i;
+            }
         }
 
         /// <summary>
@@ -127,7 +158,7 @@ namespace Unicorn
             List<string> newLevelLines = ReadAndValidateLevelFile(fileStream);
             int newLevelWidth = newLevelLines[0].Length;
 
-            
+
             // Loop over every tile position
             int initialWidth = this.Width;
             for (int x = 0; x < newLevelWidth; ++x)
@@ -237,6 +268,7 @@ namespace Unicorn
 
                 // Impassable block
                 case 'X':
+                case 'x':
                     return LoadTile("Impassable", TileCollision.Impassable);
 
                 // Top Double Impassable block
@@ -269,6 +301,11 @@ namespace Unicorn
             }
         }
 
+        private string GetRandomMonster()
+        {
+            return enemieSpriteSets[ScreenManager.Random.Next(enemieSpriteSets.Length)];
+        }
+
         /// <summary>
         /// Creates a new tile. The other tile loading methods typically chain to this
         /// method after performing their special logic.
@@ -298,7 +335,7 @@ namespace Unicorn
         /// </param>
         private Tile LoadVarietyTile(string baseName, int variationCount, TileCollision collision)
         {
-            int index = random.Next(variationCount);
+            int index = ScreenManager.Random.Next(variationCount);
             return LoadTile(baseName + index, collision);
         }
 
@@ -357,9 +394,9 @@ namespace Unicorn
             const int numberOfEnemies = 2;
             const float probabilityOfEnemy = 0.90f;
 
-            if (random.NextDouble() < probabilityOfEnemy)
+            if (ScreenManager.Random.NextDouble() < probabilityOfEnemy)
             {
-                int enemyToLoad = random.Next(numberOfEnemies);
+                int enemyToLoad = ScreenManager.Random.Next(numberOfEnemies);
                 string spriteSet;
                 switch (enemyToLoad)
                 {
@@ -393,9 +430,9 @@ namespace Unicorn
             const int numberOfPowerups = 4;
             const float probabilityOfPowerup = 0.75f;
 
-            if (random.NextDouble() < probabilityOfPowerup)
+            if (ScreenManager.Random.NextDouble() > probabilityOfPowerup)
             {
-                int powerupToLoad = random.Next(numberOfPowerups);
+                int powerupToLoad = ScreenManager.Random.Next(numberOfPowerups);
                 switch (powerupToLoad)
                 {
                     case 0:
@@ -533,7 +570,7 @@ namespace Unicorn
 
         private void LoadNextLevel()
         {
-            int levelIndex = levelIndex = random.Next(numberOfLevels);
+            int levelIndex = levelIndex = ScreenManager.Random.Next(NumberOfLevels);
             string levelPath = string.Format("Content/Levels/{0}.txt", levelIndex);
             using (Stream fileStream = TitleContainer.OpenStream(levelPath))
                 LoadTiles(fileStream);
