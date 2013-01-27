@@ -242,12 +242,12 @@ namespace Unicorn
 
                 // Random powerup in front of passable
                 case 'E':
-                    LoadRandomEnemy(x, y);
+                    LoadEnemyTile(x, y, GetRandomMonster());
                     return LoadTile("Dirt48", TileCollision.Passable);
 
                 // Random Enemy
                 case 'e':
-                    return LoadRandomEnemy(x, y);
+                    return LoadEnemyTile(x, y, GetRandomMonster());
 
                 // Journal in front of passable
                 case 'J':
@@ -380,38 +380,6 @@ namespace Unicorn
         {
             Vector2 position = RectangleExtensions.GetBottomCenter(GetBounds(x, y));
             enemies.Add(new Enemy(this, position, spriteSet));
-
-            return new Tile(null, TileCollision.Passable);
-        }
-
-        /// <summary>
-        /// Instantiates an enemy and puts him in the level.
-        /// </summary>
-        private Tile LoadRandomEnemy(int x, int y)
-        {
-            Vector2 position = RectangleExtensions.GetBottomCenter(GetBounds(x, y));
-
-            const int numberOfEnemies = 2;
-            const float probabilityOfEnemy = 0.90f;
-
-            if (ScreenManager.Random.NextDouble() < probabilityOfEnemy)
-            {
-                int enemyToLoad = ScreenManager.Random.Next(numberOfEnemies);
-                string spriteSet;
-                switch (enemyToLoad)
-                {
-                    case 0:
-                        spriteSet = "Slug";
-                        break;
-                    case 1:
-                        spriteSet = "Scorpion";
-                        break;
-                    default:
-                        throw new IndexOutOfRangeException(String.Format("Random number generator selected an invalid enemy. Check constant value for number of enemies."));
-                }
-
-                enemies.Add(new Enemy(this, position, spriteSet));
-            }
 
             return new Tile(null, TileCollision.Passable);
         }
