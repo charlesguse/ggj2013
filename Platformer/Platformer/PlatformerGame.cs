@@ -16,6 +16,8 @@ using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Input.Touch;
 using Unicorn.ScreenArchitecture;
 using Microsoft.Xna.Framework.Content;
+using Unicorn.Screens;
+using Platformer.Screens;
 
 
 namespace Unicorn
@@ -50,7 +52,7 @@ namespace Unicorn
         private KeyboardState keyboardState;
         //private TouchCollection touchState;
         //private AccelerometerState accelerometerState;
-        
+
         // The number of levels in the Levels directory of our content. We assume that
         // levels in our content are 0-based and that all numbers under this constant
         // have a level file present. This allows us to not need to check for the file
@@ -59,15 +61,15 @@ namespace Unicorn
 
         public PlatformerGame()
         {
-//            graphics = new GraphicsDeviceManager(this);
-//            Content.RootDirectory = "Content";
+            //            graphics = new GraphicsDeviceManager(this);
+            //            Content.RootDirectory = "Content";
 
-//#if WINDOWS_PHONE
-//            graphics.IsFullScreen = true;
-//            TargetElapsedTime = TimeSpan.FromTicks(333333);
-//#endif
+            //#if WINDOWS_PHONE
+            //            graphics.IsFullScreen = true;
+            //            TargetElapsedTime = TimeSpan.FromTicks(333333);
+            //#endif
 
-//            Accelerometer.Initialize();
+            //            Accelerometer.Initialize();
         }
 
         /// <summary>
@@ -115,7 +117,13 @@ namespace Unicorn
             // update our level, passing down the GameTime along with all of our input states
             level.Update(gameTime, keyboardState, gamePadState);
 
-            //base.Update(gameTime);
+            if (level.TimeRemaining == TimeSpan.Zero)
+            {
+                ScreenManager.AddScreen(new GameOverScreen(Ending.TimeOut), null);
+                LoadingScreen.Load(ScreenManager, true, null,
+                              new GameOverScreen(Ending.TimeOut));
+            }
+            base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
         }
 
         private void HandleInput()
@@ -220,7 +228,7 @@ namespace Unicorn
             Color fatColor;
             fatColor = (level.Player.FatIsTooHigh() || level.Player.FatIsTooLow()) ? Color.Red : Color.Yellow;
             DrawShadowedString(hudFont, fatString, hudLocation + new Vector2(0.0f, timeHeight * 2.4f), fatColor);
-           
+
             // Determine the status overlay message to show.
             Texture2D status = null;
             if (level.TimeRemaining == TimeSpan.Zero)
@@ -231,7 +239,9 @@ namespace Unicorn
                 }
                 else
                 {
-                    status = loseOverlay;
+                    //ScreenManager.AddScreen(new GameOverScreen(Ending.TimeOut), null);
+                    //LoadingScreen.Load(ScreenManager, true, null,
+                    //              new GameOverScreen(Ending.TimeOut));
                 }
             }
             else if (!level.Player.IsAlive)

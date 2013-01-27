@@ -88,7 +88,7 @@ namespace Unicorn
         private float speedModifier = 1.0f;
 
         // Constants for controling horizontal movement
-        private const float MoveAcceleration = 13000.0f;
+        public float MoveAcceleration = 13000.0f;
         private const float MaxMoveSpeed = 1750.0f;
         private const float GroundDragFactor = 0.48f;
         private const float AirDragFactor = 0.58f;
@@ -217,6 +217,7 @@ namespace Unicorn
                 }
             }
 
+            Fattyfatness -= .0005f;
             // Clear input.
             movement = 0.0f;
             isJumping = false;
@@ -460,15 +461,10 @@ namespace Unicorn
                 LoadingScreen.Load(Level.ScreenManager, true, null,
                                    new GameOverScreen(Ending.Diabetes));
             }
-            else if (killedBy != null) // NOT FAT
-            {
-                LoadingScreen.Load(Level.ScreenManager, true, null,
-                                   new GameOverScreen(Ending.Death));
-            }
             else
             {
                 LoadingScreen.Load(Level.ScreenManager, true, null,
-                                   new GameOverScreen(Ending.TimeOut));
+                                   new GameOverScreen(Ending.Death));
             }
         }
 

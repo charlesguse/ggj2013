@@ -31,7 +31,7 @@ namespace Unicorn
         private Layer[] layers;
 
         // The layer which entities are drawn on top of.
-        private const int EntityLayer = 0;
+        private const int EntityLayer = 1;
 
         private const int numberOfLevels = 3;
         private int levelHeight = 0;
@@ -100,14 +100,14 @@ namespace Unicorn
             // Create a new content manager to load content used just by this level.
             ScreenManager = screenManager;
 
-            timeRemaining = TimeSpan.FromMinutes(2.0);
+            timeRemaining = TimeSpan.FromMinutes(0.1);
 
             levelTiles = new List<Tile[]>();
             LoadTiles(fileStream);
 
-            layers = new Layer[1];
+            layers = new Layer[2];
             layers[0] = new Layer(ScreenManager.Content, "Backgrounds/background0", 0.2f);
-            //layers[1] = new Layer(ScreenManager.Content, "Backgrounds/Layer1", 0.5f);
+            layers[1] = new Layer(ScreenManager.Content, "Backgrounds/clouds0", 0.8f);
             //layers[2] = new Layer(ScreenManager.Content, "Backgrounds/Layer2", 0.8f);
 
             // Load sounds.
