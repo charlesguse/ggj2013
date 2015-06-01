@@ -1,6 +1,0 @@
-glob:*.suo
-glob:*.user
-glob:bin/*
-glob:obj/*
-glob:*.Debug.cachefile
-glob:*.Release.cachefile
